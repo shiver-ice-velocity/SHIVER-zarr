@@ -1,12 +1,23 @@
 # web/server/utils/citations.py
 from datetime import datetime
 
+
+def shiver_citations(dataset_version=None):
+    """
+    The citations for SHIVER itself. Pass the store's dataset version
+    (ds.attrs["dataset_version"]) so the citation names the exact release;
+    each version matches a release of the Zenodo record.
+    """
+    version = f" (Version v{dataset_version})" if dataset_version else ""
+    return [
+        f"SHIVER data and compilation method: Davison, B. J. (2026). The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets{version} [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21375859",
+        "SHIVER method paper: Davison, B. J. et al. (in prep). The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets. Manuscript in preparation.",
+    ]
+
+
 CITATIONS_CONFIG = {
     "common": {
-		  "SHIVER": [
-				"SHIVER data and compilation method: Davison, B. J. (2026). The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets (Version v[specify version number]) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21375859",
-                "SHIVER method paper: Davison, B. J. et al. (in prep). The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets. [specify journal]. https://doi.org/10.xxxx/XXXXXXX"
-		  ],
+		  "SHIVER": None,  # filled in below by shiver_citations()
 	},
 	"greenland": {
 		  "SHIFT": [
@@ -157,7 +168,10 @@ CITATIONS_CONFIG = {
 	}
 }
 
-def generate_citation_text(used_sources: list[str], current_region: str) -> str:
+CITATIONS_CONFIG["common"]["SHIVER"] = shiver_citations()
+
+
+def generate_citation_text(used_sources: list[str], current_region: str, dataset_version=None) -> str:
     date_downloaded = datetime.utcnow().strftime('%Y-%m-%d')
     region_key = current_region.lower()
     region_citations = CITATIONS_CONFIG.get(region_key, {})
@@ -172,7 +186,7 @@ def generate_citation_text(used_sources: list[str], current_region: str) -> str:
     text += "-------------------------\n"
     text += "If you use this data in a publication, please cite the SHIVER web application and compilation method:\n\n"
     
-    for cit in CITATIONS_CONFIG["common"].get("SHIVER", []):
+    for cit in shiver_citations(dataset_version):
         text += f"* {cit}\n"
     text += "\n"
 
