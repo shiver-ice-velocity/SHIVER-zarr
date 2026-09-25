@@ -66,7 +66,7 @@ alt: PROMICE Greenland data overview
 Overview of the Greenland PROMICE data
 ```
 
-> Solgaard, A., Kusk, A., Merryman Boncori, J.P., Dall, J., Mankoff, K.D., Ahlstrøm, A.P., Andersen, S.B., Citterio, M., Karlsson, N.B., Kjeldsen, K.K. and Korsgaard, N.J., 2021. Greenland ice velocity maps from the PROMICE project. Earth System Science Data, 13(7), pp.3491-3512. DOI: https://doi.org/10.5194/essd-13-3491-2021.
+> Solgaard, A., Kusk, A., Merryman Boncori, J.P., Dall, J., Mankoff, K.D., AhlstrÃ¸m, A.P., Andersen, S.B., Citterio, M., Karlsson, N.B., Kjeldsen, K.K. and Korsgaard, N.J., 2021. Greenland ice velocity maps from the PROMICE project. Earth System Science Data, 13(7), pp.3491-3512. DOI: https://doi.org/10.5194/essd-13-3491-2021.
 
 > Solgaard, Anne Munck; Kusk, Anders, 2026, "Greenland Ice Velocity from Sentinel-1 Edition 5", https://doi.org/10.22008/FK2/K70OPK, GEUS Dataverse, V6.
 
@@ -161,7 +161,7 @@ alt: ITS_LIVE annual data overview
 Overview of the Greenland ITS_LIVE annual data.
 ```
 
-> Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., López L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
+> Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., LÃ³pez L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
 
 > Gardner, A. S., Fahnestock, M. & Scambos, T. (2022). MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
 
@@ -324,7 +324,7 @@ Overview of the ESA CCI Sentinel-2 data.
 
 > ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Hagen Glacier between 2017-06-30 and 2017-08-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e7fa45e785a64481960c3b140038c948
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Døcker Smith Glacier between 2016-05-08 and 2016-05-18, generated using Sentinel-2 data, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/88d02eb5a6c14952aa88028894d8a69c
+> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the DÃ¸cker Smith Glacier between 2016-05-08 and 2016-05-18, generated using Sentinel-2 data, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/88d02eb5a6c14952aa88028894d8a69c
 
 > ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the 79Fjord Glacier between 2017-06-25 and 2017-08-10, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/f31e8e988c4144bebe13892b53d08e42
 
@@ -457,7 +457,7 @@ alt: ENVEO ERS data overview
 Overview of the ENVEO ERS data.
 ```
 
-> Rott, H., Müller, F., Nagler, T. and Floricioiu, D., 2011. The imbalance of glaciers after disintegration of Larsen-B ice shelf, Antarctic Peninsula. The Cryosphere, 5(1), pp.125-134. DOI: https://doi.org/10.5194/tc-5-125-2011.
+> Rott, H., MÃ¼ller, F., Nagler, T. and Floricioiu, D., 2011. The imbalance of glaciers after disintegration of Larsen-B ice shelf, Antarctic Peninsula. The Cryosphere, 5(1), pp.125-134. DOI: https://doi.org/10.5194/tc-5-125-2011.
 
 > Wuite, J., Rott, H., Hetzenecker, M., Floricioiu, D., De Rydt, J., Gudmundsson, G.H., Nagler, T. and Kern, M., 2015. Evolution of surface velocities and ice discharge of Larsen B outlet glaciers from 1995 to 2013. The Cryosphere, 9(3), pp.957-969. DOI: https://doi.org/10.5194/tc-9-957-2015.
 
@@ -583,7 +583,7 @@ alt: ITS_LIVE annual data overview
 Overview of the Antarctica ITS_LIVE annual data.
 ```
 
-> Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., López, L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
+> Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., LÃ³pez, L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
 
 > Gardner, A. S., Fahnestock, M. & Scambos, T. (2022). MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
 
