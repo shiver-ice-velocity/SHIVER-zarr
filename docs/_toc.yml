@@ -27,6 +27,7 @@ parts:
       - file: examples/simple_layers
       - file: examples/simple_subset
       - file: examples/trend_change
+      - file: examples/temporal_statistics
       - file: examples/eof
       - file: examples/strain
 
