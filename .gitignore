@@ -1,4 +1,5 @@
 __pycache__/
 data/
 strain_plot.ipynb
-discharge.ipynb
+discharge.ipynb.ipynb_checkpoints/
+docs/_build/
