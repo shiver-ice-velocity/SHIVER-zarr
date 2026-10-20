@@ -586,6 +586,107 @@ CITATIONS_DB = {
         "volume": "14",
         "pages": "4061",
         "doi": "10.1038/s41467-023-39588-x"
+    },
+    
+    # --- Rosanova PIG74 ---
+    "rosanova_pig74_2001": {
+        "type": "article",
+        "author": "Rosanova, C. E. and Lucchitta, B. K.",
+        "year": "2001",
+        "title": "Acceleration of Pine Island Glacier Ice Shelf",
+        "journal": "Eos Trans. AGU",
+        "volume": "82",
+        "number": "47"
+    },
+
+    # --- Scambos PIG87 ---
+    "scambos_pig87_2003": {
+        "type": "dataset",
+        "author": "Scambos, T. and Raup, B. and Bohlander, J.",
+        "year": "2003",
+        "title": "Antarctic ice velocity data archive",
+        "publisher": "National Snow and Ice Data Center",
+        "address": "Boulder, CO",
+        "url": "http://nsidc.org/data/velmap/"
+    },
+
+    # --- Joughin PIG ERS ---
+    "joughin_pig_ers_2003": {
+        "type": "article",
+        "author": "Joughin, I. and Rignot, E. and Rosanova, C. E. and Lucchitta, B. K. and Bohlander, J.",
+        "year": "2003",
+        "title": "Timing of recent accelerations of Pine Island glacier, Antarctica",
+        "journal": "Geophysical Research Letters",
+        "volume": "30",
+        "doi": "10.1029/2003GL017609"
+    },
+
+    # --- Bohlander Scambos 2002 ---
+    "bohlander_scambos_2002": {
+        "type": "article",
+        "author": "Bohlander, J. and Scambos, T. A.",
+        "year": "2002",
+        "title": "Ice Flow and Morphology of Prestrud Inlet and Western Sulzberger Ice Shelf, West Antarctica",
+        "journal": "Polar Geography",
+        "volume": "26",
+        "pages": "227-234",
+        "doi": "10.1080/789610194"
+    },
+
+    # --- Bindschadler 1996 ---
+    "bindschadler_1996": {
+        "type": "article",
+        "author": "Bindschadler, R. and Vornberger, P. and Blankenship, D. and Scambos, T. and Jacobel, R.",
+        "year": "1996",
+        "title": "Surface velocity and mass balance of Ice Streams D and E, West Antarctica",
+        "journal": "Journal of Glaciology",
+        "volume": "42",
+        "pages": "461-475",
+        "doi": "10.3189/S0022143000003452"
+    },
+
+    # --- Scambos Bohlander DF ---
+    "scambos_bohlander_df_2004": {
+        "type": "dataset",
+        "author": "Bindschadler, R. and Raymond, C.",
+        "year": "2004",
+        "title": "Antarctic Ice Velocity Data",
+        "publisher": "U.S. Antarctic Program (USAP) Data Center",
+        "doi": "10.7265/N5KS6PH5"
+    },
+
+    # --- Scambos 2004 ---
+    "scambos_2004": {
+        "type": "article",
+        "author": "Scambos, T. and Bohlander, J. and Raup, B. and Haran, T.",
+        "year": "2004",
+        "title": "Glaciological characteristics of Institute Ice Stream using remote sensing",
+        "journal": "Antarctic Science",
+        "volume": "16",
+        "pages": "205-213",
+        "doi": "10.1017/S0954102004001919"
+    },
+
+    # --- Brecher 1982 ---
+    "brecher_1982": {
+        "type": "article",
+        "author": "Brecher, H. H.",
+        "year": "1982",
+        "title": "Photographic determination of surface velocities and elevations on Byrd Glacier",
+        "journal": "Antarctic Journal of the United States",
+        "volume": "17",
+        "pages": "79-81"
+    },
+
+    # --- Vaughan 1996 ---
+    "vaughan_1996": {
+        "type": "techreport",
+        "author": "Vaughan, D. G. and Jonas, M.",
+        "year": "1996",
+        "title": "Measurements of velocity of Filchner-Ronne Ice Shelf",
+        "institution": "AWI, Bremerhaven",
+        "number": "FRISP Report No. 10",
+        "pages": "111-116"
     }
 }
 
@@ -658,5 +759,14 @@ ANTARCTICA_SOURCE_MAPPING = {
     "C3S_annual": ["c3s_annual_2020"],                              
     "Joughin_Sentinel-1": ["joughin_pig_2021"],
     "Joughin_TSX": ["joughin_pig_2021"],
-    "Li_Totten": ["li_totten_2023"]
+    "Li_Totten": ["li_totten_2023"],
+    "Rosanova_PIG74": ["rosanova_pig74_2001"],
+    "Scambos_PIG87": ["scambos_pig87_2003"],
+    "Joughin_PIG_ERS": ["joughin_pig_ers_2003"],
+    "Bohlander_Scambos02": ["bohlander_scambos_2002"],
+    "Bindschadler96": ["bindschadler_1996"],
+    "ScambosBohlander_DF": ["scambos_bohlander_df_2004"],
+    "Scambos04": ["scambos_2004"],
+    "Brecher82": ["brecher_1982"],
+    "Vaughan96": ["vaughan_1996"]
 }

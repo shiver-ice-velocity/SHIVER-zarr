@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../gui/overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -552,9 +552,11 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightSource</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib_scalebar.scalebar</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScaleBar</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.crs</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ccrs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.io.shapereader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">shpreader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cartopy.feature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cfeature</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyproj</span><span class="w"> </span><span class="kn">import</span> <span class="n">Transformer</span>
 
 <span class="c1"># ==========================================</span>
@@ -563,6 +565,7 @@ document.write(`
 <span class="n">antarctica_url</span> <span class="o">=</span> <span class="s2">&quot;https://data.source.coop/uos-shiver/antarctica/antarctica_multisource_velocity_spatial.zarr&quot;</span>
 <span class="n">dem_1km_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/no/one/wants/to/see/my/directory/structure/REMA_1km_dem_filled.tif&quot;</span>
 <span class="n">dem_200m_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/no/one/wants/to/see/my/directory/structure/REMA_200m_dem_filled.tif&quot;</span>
+<span class="n">coast_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/no/one/wants/to/see/my/directory/structure/add_coastline_medium_res_line_v7_11.shp/add_coastline_medium_res_line_v7_11.shp&quot;</span>
 
 <span class="c1"># Define CRS</span>
 <span class="n">CRS_3031</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">SouthPolarStereo</span><span class="p">()</span>
@@ -580,21 +583,12 @@ document.write(`
 <span class="c1"># ==========================================</span>
 <span class="c1"># 2. Helper Functions</span>
 <span class="c1"># ==========================================</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_polygon_3031</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
-    <span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lat2</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lat2</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
-    <span class="p">])</span>
-    <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lon2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lon2</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
-    <span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_extent_3031</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the straight EPSG:3031 bounding box limits (xmin, xmax, ymin, ymax).&quot;&quot;&quot;</span>
+    <span class="n">lats</span> <span class="o">=</span> <span class="p">[</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lat2</span><span class="p">]</span>
+    <span class="n">lons</span> <span class="o">=</span> <span class="p">[</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">lon1</span><span class="p">]</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">proj_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_speed_change</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
     <span class="n">source_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MEaSUREs_multiyear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
@@ -628,7 +622,7 @@ document.write(`
               <span class="n">dem_1km</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">dem_1km</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
 
 <span class="c1"># ==========================================</span>
-<span class="c1"># 4. Figure Layout Initialization</span>
+<span class="c1"># 4. Figure Layout Initialization &amp; Features</span>
 <span class="c1"># ==========================================</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.sans-serif&#39;</span><span class="p">:</span> <span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">})</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
@@ -638,6 +632,14 @@ document.write(`
 <span class="n">gs_right_bot</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.48</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
 
 <span class="n">ax_main</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs_left</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">CRS_3031</span><span class="p">)</span>
+
+<span class="n">coastline_feature</span> <span class="o">=</span> <span class="n">cfeature</span><span class="o">.</span><span class="n">ShapelyFeature</span><span class="p">(</span>
+    <span class="n">shpreader</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">coast_path</span><span class="p">)</span><span class="o">.</span><span class="n">geometries</span><span class="p">(),</span>
+    <span class="n">CRS_3031</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#708090&#39;</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="p">)</span>
 
 <span class="c1"># ==========================================</span>
 <span class="c1"># 5. Plot overview</span>
@@ -649,35 +651,48 @@ document.write(`
     <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">CRS_3031</span>
 <span class="p">)</span>
 
-<span class="c1"># Ensure panels fits everything in</span>
+<span class="n">ax_main</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">coastline_feature</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> 
+
 <span class="n">x_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_x_max</span> <span class="o">+</span> <span class="n">full_x_min</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
 <span class="n">y_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_y_max</span> <span class="o">+</span> <span class="n">full_y_min</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
-<span class="n">max_range</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">full_x_max</span> <span class="o">-</span> <span class="n">full_x_min</span><span class="p">,</span> <span class="n">full_y_max</span> <span class="o">-</span> <span class="n">full_y_min</span><span class="p">)</span> <span class="c1"># Find the largest spatial dimension (width or height)</span>
-<span class="n">zoom_buffer</span> <span class="o">=</span> <span class="n">max_range</span> <span class="o">*</span> <span class="mf">0.02</span>   <span class="c1"># Add a 2% buffer to &quot;zoom out&quot; slightly </span>
+<span class="n">max_range</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">full_x_max</span> <span class="o">-</span> <span class="n">full_x_min</span><span class="p">,</span> <span class="n">full_y_max</span> <span class="o">-</span> <span class="n">full_y_min</span><span class="p">)</span>
+<span class="n">zoom_buffer</span> <span class="o">=</span> <span class="n">max_range</span> <span class="o">*</span> <span class="mf">0.02</span>   
 <span class="n">ax_main</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_center</span> <span class="o">-</span> <span class="p">(</span><span class="n">max_range</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">zoom_buffer</span><span class="p">,</span> <span class="n">x_center</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_range</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">zoom_buffer</span><span class="p">)</span>
 <span class="n">ax_main</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">y_center</span> <span class="o">-</span> <span class="p">(</span><span class="n">max_range</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">zoom_buffer</span><span class="p">,</span> <span class="n">y_center</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_range</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">zoom_buffer</span><span class="p">)</span>
 
 <span class="n">ax_main</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;a) Antarctica ice speed change&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 
-<span class="c1"># Remove the bounding box from the main panel</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">ax_main</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;geo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
     <span class="n">ax_main</span><span class="o">.</span><span class="n">outline_patch</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Draw and label bounding boxes</span>
-<span class="n">region_polygons</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># Draw rectangles in subplot locations</span>
+<span class="n">region_extents</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">poly_pts</span> <span class="o">=</span> <span class="n">get_polygon_3031</span><span class="p">(</span><span class="o">*</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">])</span>
-    <span class="n">region_polygons</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">poly_pts</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">get_extent_3031</span><span class="p">(</span><span class="o">*</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;coords&quot;</span><span class="p">])</span>
+    <span class="n">region_extents</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
     
-    <span class="n">rect</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">poly_pts</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># Draw straight-edge rectangle directly in EPSG:3031 projection coordinates</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">),</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">,</span> 
+                     <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">ax_main</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
     
-    <span class="n">centroid_x</span><span class="p">,</span> <span class="n">centroid_y</span> <span class="o">=</span> <span class="n">poly_pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">poly_pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">ax_main</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">centroid_x</span><span class="p">,</span> <span class="n">centroid_y</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;circle,pad=0.1&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
-                 <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">centroid_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">xmin</span> <span class="o">+</span> <span class="n">xmax</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">centroid_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">ymin</span> <span class="o">+</span> <span class="n">ymax</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">ax_main</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+        <span class="n">key</span><span class="p">,</span> 
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span> 
+        <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+        <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> 
+        <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;circle,pad=0.12&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> 
+        <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> 
+        <span class="n">zorder</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="p">)</span>
 
 <span class="c1"># ==========================================</span>
 <span class="c1"># 6. Process &amp; plot subpanels (b-f)</span>
@@ -697,9 +712,7 @@ document.write(`
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">regions</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
     <span class="n">ax_sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">subplot_slots</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="n">CRS_3031</span><span class="p">)</span>
     
-    <span class="n">pts</span> <span class="o">=</span> <span class="n">region_polygons</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">region_extents</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
     
     <span class="n">dem_sub</span> <span class="o">=</span> <span class="n">dem_200m</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">clip_box</span><span class="p">(</span><span class="n">minx</span><span class="o">=</span><span class="n">xmin</span><span class="p">,</span> <span class="n">miny</span><span class="o">=</span><span class="n">ymin</span><span class="p">,</span> <span class="n">maxx</span><span class="o">=</span><span class="n">xmax</span><span class="p">,</span> <span class="n">maxy</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
     <span class="n">hillshade_sub</span> <span class="o">=</span> <span class="n">create_hillshade</span><span class="p">(</span><span class="n">dem_sub</span><span class="p">)</span>
@@ -717,6 +730,8 @@ document.write(`
         <span class="n">ax</span><span class="o">=</span><span class="n">ax_sub</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">300</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
         <span class="n">add_colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">CRS_3031</span>
     <span class="p">)</span>
+
+    <span class="n">ax_sub</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">coastline_feature</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     
     <span class="n">ax_sub</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">CRS_3031</span><span class="p">)</span>
     <span class="n">ax_sub</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
@@ -740,7 +755,7 @@ Processing Group 5...
 Processing subplots using Zarr group 2...
 </pre></div>
 </div>
-<img alt="../_images/c0968a738367f7e0059087aedaa09fa12796bc8034444e3705dc17973df241dd.png" src="../_images/c0968a738367f7e0059087aedaa09fa12796bc8034444e3705dc17973df241dd.png" />
+<img alt="../_images/25c822a2011589c8c932ef2e3973c153732903314a549ca83d4a5963c3a325f8.png" src="../_images/25c822a2011589c8c932ef2e3973c153732903314a549ca83d4a5963c3a325f8.png" />
 </div>
 </div>
 </section>

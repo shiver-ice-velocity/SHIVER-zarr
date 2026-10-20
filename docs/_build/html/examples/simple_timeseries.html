@@ -69,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Generating citations for Contributing Datasets" href="generating_citations.html" />
-    <link rel="prev" title="NetCDF Extractor" href="../gui/netcdf_extract.html" />
+    <link rel="prev" title="Data Cube Extractor" href="../gui/netcdf_extract.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../gui/overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -453,7 +453,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>We can then prepare our coordinates. In this example, let’s extract a timeseries of ice velocity from Saqqarliup Alangorliup, just south of Jakobshavn Isbrae in west Greenland.</p>
+<p>We can then prepare our coordinates. In this example, let’s extract a timeseries of ice velocity from Saqqarliup Alangorliup (Saqqarliup Sermia), just south of Jakobshavn Isbrae in west Greenland.</p>
 <p>The Greenland Zarr stores are provided in <code class="docutils literal notranslate"><span class="pre">EPSG:3413</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -551,7 +551,7 @@ document.write(`
     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;24-Day moving-mean&#39;</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saqqarliup Alangorliup speed timeseries</span><span class="se">\n</span><span class="s2">Location: </span><span class="si">{</span><span class="n">lat</span><span class="si">}</span><span class="s2">°N, </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span><span class="si">}</span><span class="s2">°W&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saqqarliup Alangorliup (Saqqarliup Sermia) speed timeseries</span><span class="se">\n</span><span class="s2">Location: </span><span class="si">{</span><span class="n">lat</span><span class="si">}</span><span class="s2">°N, </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span><span class="si">}</span><span class="s2">°W&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Speed (m yr-1)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -560,7 +560,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3c60b71563d2a1a5a0d4f28be8966f1801a9cbfb0a3d957ac7f3fa8d4376572e.png" src="../_images/3c60b71563d2a1a5a0d4f28be8966f1801a9cbfb0a3d957ac7f3fa8d4376572e.png" />
+<img alt="../_images/9270747abc475a9cfe3604936f5330693494de7627328c6a2ab82c1c85814a53.png" src="../_images/9270747abc475a9cfe3604936f5330693494de7627328c6a2ab82c1c85814a53.png" />
 </div>
 </div>
 <p>With a few tweaks, we can colour those points according to the Contributing Data they came from:</p>
@@ -596,12 +596,18 @@ document.write(`
 <span class="c1"># --- Plotting ---</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">2.25</span><span class="p">))</span>
 
-<span class="c1"># Groupby on non-NaN df_plot ensures only active data sources produce plot calls and legend labels</span>
-<span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">df_plot</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_source&#39;</span><span class="p">):</span>
+<span class="c1"># Count points per data source and sort descending, so that SHIFT and PROMICE are plotted at the back</span>
+<span class="n">source_counts</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Iterate through the sources in order of their counts</span>
+<span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">source_counts</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">source</span><span class="p">]</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+    
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">],</span>
-        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">source</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> 
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">source</span>
     <span class="p">)</span>
 
 <span class="c1"># Plot overall moving average</span>
@@ -631,7 +637,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/19a141b5ef5765fa7bc3da34f897e0443e7d7eab31f05081ee7026024f983031.png" src="../_images/19a141b5ef5765fa7bc3da34f897e0443e7d7eab31f05081ee7026024f983031.png" />
+<img alt="../_images/dfb5c39a513bf84a19645c1af97a1678e026026cf4a6aa3eca1f46332ba50aa6.png" src="../_images/dfb5c39a513bf84a19645c1af97a1678e026026cf4a6aa3eca1f46332ba50aa6.png" />
 </div>
 </div>
 <p>We can perform exactly the same operations on the Antarctica Zarr store, like this:</p>
@@ -709,12 +715,18 @@ document.write(`
 <span class="c1"># --- Plotting ---</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">2.25</span><span class="p">))</span>
 
-<span class="c1"># Groupby on non-NaN df_plot ensures only active data sources produce plot calls and legend labels</span>
-<span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">df_plot</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_source&#39;</span><span class="p">):</span>
+<span class="c1"># Count points per data source and sort descending, so that SHIFT and PROMICE are plotted at the back</span>
+<span class="n">source_counts</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Iterate through the sources in order of their counts</span>
+<span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">source_counts</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">source</span><span class="p">]</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">color_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+    
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">],</span>
-        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">source</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> 
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">source</span>
     <span class="p">)</span>
 
 <span class="c1"># Plot overall moving average</span>
@@ -748,7 +760,7 @@ document.write(`
   return fnb._ureduce(a, func=_nanmedian, keepdims=keepdims,
 </pre></div>
 </div>
-<img alt="../_images/9fde34f2a18d13dac00990ad7cf8fd9d7de851889b1ec5b90e531cc6be91d0ca.png" src="../_images/9fde34f2a18d13dac00990ad7cf8fd9d7de851889b1ec5b90e531cc6be91d0ca.png" />
+<img alt="../_images/1549f749d2528a6059a7a97c006ad091fcf380c6162625e8ed3284ece7d4c078.png" src="../_images/1549f749d2528a6059a7a97c006ad091fcf380c6162625e8ed3284ece7d4c078.png" />
 </div>
 </div>
 </section>
@@ -789,7 +801,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NetCDF Extractor</p>
+        <p class="prev-next-title">Data Cube Extractor</p>
       </div>
     </a>
     <a class="right-next"

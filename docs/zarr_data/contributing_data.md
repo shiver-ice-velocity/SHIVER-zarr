@@ -8,10 +8,10 @@ Our ice sheet velocity Zarr stores contain ice velocity estimates that have been
 
 _There are 17 Contributing Datasets for Greenland, which are summarised in this table:_
 
-**Table 1. Datasets contributing to the Greenland Ice Sheet unified dataset. _Valid as of 30th July 2026_**
-| Source Dataset | Start Date | End Date | Epochs | Sep. (days) | Resolution (m) | Citation |
+**Table 1. Datasets contributing to the Greenland Ice Sheet Unified Dataset (valid on August 25th, 2026)**
+| Source Dataset | Start Date | End Date | Epochs | Time Sep. (days) | Resolution (m) | Citation |
 | :--- | :--- | :--- | ---: | ---: | ---: | ---: |
-| C3S annual | 01/10/2014 | 30/09/2020 | 6 | 364 | 250 | [1] |
+| C3S annual<sup>b</sup> | 01/10/2014 | 30/09/2024 | 10 | 364 | 250 | [1] |
 | ESA CCI CSK | 02/06/2012 | 25/12/2014 | 13 | 4 | 250 | [2] |
 | ESA CCI ERS1 1991-1992 | 29/12/1991 | 22/03/1992 | 1 | 84 | 500 | [3] |
 | ESA CCI ERS1-2 Envisat | 01/08/1991 | 07/02/2011 | 1877 | 35 | 90 | [4-11] |
@@ -21,12 +21,12 @@ _There are 17 Contributing Datasets for Greenland, which are summarised in this 
 | ESA CCI Sentinel-2<sup>a</sup> | 01/05/2017 | 14/09/2017 | 28 | 14 | 50 | [23-31] |
 | ESA CCI winter<sup>c</sup> | 21/01/2014 | 28/02/2018 | 5 | 62 | 500 | [32] |
 | ITS LIVE annual | 01/01/1985 | 31/12/2024 | 40 | 364 | 120 | [33, 34] |
-| MEaSUREs annual | 01/12/2014 | 30/11/2023 | 9 | 364 | 200 | [35-37] |
+| MEaSUREs annual | 01/12/2014 | 30/11/2023 | 9 | 364 | 200 | [36-37] |
 | MEaSUREs monthly | 01/12/2014 | 30/11/2024 | 120 | 30 | 200 | [36-38] |
-| MEaSUREs qaurterly | 01/12/2014 | 30/11/2024 | 40 | 91 | 200 | [36, 37, 39] |
+| MEaSUREs quarterly | 01/12/2014 | 30/11/2024 | 40 | 91 | 200 | [36, 37, 39] |
 | MEaSUREs winter | 03/09/2000 | 31/05/2018 | 11 | 272 | 200 | [36, 37, 40] |
 | Mouginot annual<sup>a</sup> | 01/07/1972 | 30/06/2017 | 38 | 364 | 90 | [41] |
-| PROMICE | 05/01/2016 | 28/06/2026 | 317 | 24 | 200 | [42, 43] |
+| PROMICE | 05/01/2016 | 09/09/2026 | 322 | 24 | 200 | [42, 43] |
 | SHIFT<sup>d</sup> | 11/10/2014 | 17/01/2026 | 1663 | 12 | 200 | [44, 45] |
 
 <sup>a</sup> Error of all epochs and velocity components assumed to be 5% \
@@ -34,8 +34,7 @@ _There are 17 Contributing Datasets for Greenland, which are summarised in this 
 <sup>c</sup> Error provided for all components in winters 2013/2014. All errors assumed to be 5% in winter 2014/2015. Only velocity magnitude error provided in winters 2015/2016, 2016/2017 and 2017/2018, so velocity component errors assumed to be 5%. \
 <sup>d</sup> Error is provided as a scalar value defined as the standard deviation of apparent ice motion over bedrock areas. If provided error is NaN for a given epoch, the error is assumed to be 5%.
 
-<em>Citations:</em> <strong>[1]</strong> Copernicus Climate Change Service, Climate Data Store (2020); <strong>[2, 4-11, 23-27, 32]</strong> ESA Greenland Ice Sheet CCI project team (2018a-o); <strong>[3, 12, 13]</strong> ESA Greenland Ice Sheet CCI project team (2016a-c); <strong>[14-22, 28-31]</strong> ESA Greenland Ice Sheet CCI project team (2019a-m); <strong>[33]</strong> Gardner et al. (2025); <strong>[34]</strong> Gardner et al. (2022); <strong>[35, 38, 39]</strong> Joughin (2023a-c); <strong>[36]</strong> Joughin et al. (2010); <strong>[37]</strong> Joughin et al. (2018); <strong>[40]</strong> Joughin et al. (2015); <strong>[41]</strong> Mouginot et al. (2017); <strong>[42, 43]</strong> Solgaard et al. (2021; 2026); <strong>[44]</strong> Davison et al. (2020); <strong>[45]</strong> Sole & Davison (2026).
-
+_Citations:_ **[1]** Copernicus Climate Change Service, Climate Data Store (2020); **[2, 4-11, 23-27, 32]** ESA Greenland Ice Sheet CCI project team (2018a-o); **[3, 12, 13]** ESA Greenland Ice Sheet CCI project team (2016a-c); **[14-22, 28-31]** ESA Greenland Ice Sheet CCI project team (2019a-m); **[33]** Gardner et al. (2025); **[34]** Gardner et al. (2022); **[35, 38, 39]** Joughin (2023a-c); **[36]** Joughin et al. (2010); **[37]** Joughin et al. (2018); **[40]** Joughin et al. (2015); **[41]** Mouginot et al. (2017); **[42, 43]** Solgaard et al. (2021; 2026); **[44]** Davison et al. (2020); **[45]** Sole & Davison (2026).
 The sections below provide a brief overview of each of these Contributing Datasets.
 
 (greenland_shift)=
@@ -56,7 +55,7 @@ Overview of the Greenland SHIFT data
 
 (greenland_promice)=
 ### PROMICE
-The PROMICE data provide 24-day (two consecutive Sentinel-1 cycles) averages of ice speed over Greenland derived from intensity tracking of Sentinel-1 image pairs from 2016 to 2026, with new 24-day averages added every 12 days. We use Edition 5 of the PROMICE mosaics here; these mosaics can be downloaded from the [GEUS Dataverse repository](https://dataverse.geus.dk/dataset.xhtml?persistentId=doi%3A10.22008%2FFK2%2FK70OPK&version=&q=&fileTypeGroupFacet=&fileAccess=&fileSortField=name&fileSortOrder=desc). The PROMICE velocity processing pipeline is described in detail in [Solgaard et al. (2021)](https://essd.copernicus.org/articles/13/3491/2021/).
+The PROMICE data provide 24-day (two consecutive Sentinel-1 cycles) averages of ice speed over Greenland derived from intensity tracking of Sentinel-1 image pairs from 2016 to 2026, with new 24-day averages added every 12 days. We use Edition 5 of the PROMICE mosaics here; these mosaics can be downloaded from the [GEUS Dataverse repository](https://dataverse.geus.dk/dataset.xhtml?persistentId=doi%3A10.22008%2FFK2%2FK70OPK&version=&q=&fileTypeGroupFacet=&fileAccess=&fileSortField=name&fileSortOrder=desc). The PROMICE velocity processing pipeline is described in detail in [Solgaard et al. (2021)](https://essd.copernicus.org/articles/13/3491/2021/). There is also a [pre-print on ESSD](https://essd.copernicus.org/preprints/essd-2026-221/) describing several updates to the dataset that pertain to the data used here: 
 
 ```{figure} ../_static/greenland/verification_maps_PROMICE.png
 ---
@@ -67,6 +66,8 @@ Overview of the Greenland PROMICE data
 ```
 
 > Solgaard, A., Kusk, A., Merryman Boncori, J.P., Dall, J., Mankoff, K.D., Ahlstrøm, A.P., Andersen, S.B., Citterio, M., Karlsson, N.B., Kjeldsen, K.K. and Korsgaard, N.J., 2021. Greenland ice velocity maps from the PROMICE project. Earth System Science Data, 13(7), pp.3491-3512. DOI: https://doi.org/10.5194/essd-13-3491-2021.
+
+> Solgaard, A., Kusk, A., Merryman Boncori, J.P., Dall, J., Ahlstrøm, A.P., Andersen, S.B., Citterio, M., How, P., Karlsson, N.B., Kjeldsen, K.K. and Larsen, S.H., 2026. PROMICE: Greenland ice velocity maps v2026. Earth System Science Data Discussions, 2026. DOI: https://doi.org/10.5194/essd-2026-221
 
 > Solgaard, Anne Munck; Kusk, Anders, 2026, "Greenland Ice Velocity from Sentinel-1 Edition 5", https://doi.org/10.22008/FK2/K70OPK, GEUS Dataverse, V6.
 
@@ -185,7 +186,7 @@ Overview of the Greenland Mouginot annual data.
 
 The Copernicus Climate Change Service (C3S) annual data provide annual (October through September) averages of ice speed over Greenland derived from a combination of SAR interferometry and intensity and coherence tracking applied to Sentinel-1 image pairs acquired during 2014 to 2020. The velocity processing pipeline used to produce the mosaics is described in [Wuite et al. (2026)](https://www.sciencedirect.com/science/article/pii/S0034425725004961) and the mosaics can be accessed [here](https://cds.climate.copernicus.eu/datasets/satellite-greenland-ice-sheet-velocity?tab=download).
 
-```{figure} ../_static/greenland/verification_maps_ENVEO_annual.png
+```{figure} ../_static/greenland/verification_maps_C3S_annual.png
 ---
 name: verification-maps-enveo-annual-fig
 alt: C3S annual data overview
@@ -364,36 +365,44 @@ Overview of the ESA CCI Sentinel-1 data.
 
 (antarctica_data)=
 ## Antarctica Data
-_There are 17 Contributing Datasets for Antarctica, which are summarised in this table:_
+_There are 26 Contributing Datasets for Antarctica, which are summarised in this table:_
 
-**Table 2. Datasets contributing to the Antarctic Ice Sheet unified dataset. _Valid as of 30th July 2026_**
-| Source Dataset | Start Date | End Date | Epochs | Sep. (days) | Resolution (m) | Citation |
+**Table 2. Datasets contributing to the Antarctic Ice Sheet Unified Dataset (valid on August 25th, 2026)**
+| Source Dataset | Start Date | End Date | Epochs | Time Sep. (days) | Resolution (m) | Citation |
 | :--- | :--- | :--- | ---: | ---: | ---: | ---: |
-| ENVEO PALSAR<sup>a</sup> | 29/09/2009 | 17/02/2011 | 2 | 47 | 50 | [1] |
-| ENVEO ERS<sup>a</sup> | 11/01/1992 | 10/11/1999 | 13 | 2 | 500 | [2, 3] |
-| ENVEO Sentinel-1 PIG<sup>a</sup> | 10/10/2014 | 21/08/2019 | 402 | 13 | 200 | [4] |
-| ENVEO TSX<sup>a</sup> | 26/06/2007 | 11/12/2016 | 125 | 12 | 50 | [1] |
-| ENVEO TSX PALSAR<sup>a</sup> | 02/07/2010 | 09/03/2012 | 1 | 617 | 50 | [1] |
-| ENVEO TSX Sentinel-1<sup>a</sup> | 31/10/2015 | 11/12/2016 | 1 | 408 | 50 | [1] |
-| ENVEO monthly | 01/10/2014 | 31/12/2021 | 87 | 30 | 200 | [4] |
-| C3S annual | 01/04/2021 | 31/03/2024 | 3 | 365 | 200 | [5] |
-| ITS LIVE annual | 01/01/1985 | 31/12/2024 | 40 | 365 | 120 | [6, 7] |
-| Joughin Sentinel-1<sup>a</sup> | 01/04/2015 | 29/09/2020 | 22 | 90 | 500 | [8] |
-| Joughin TSX<sup>a</sup> | 06/02/2009 | 24/12/2015 | 13 | 106 | 500 | [8] |
-| Li Totten<sup>a</sup> | 01/01/1963 | 31/12/1989 | 3 | 365 | 1000 | [8] |
-| MEaSUREs ASE | 01/01/1996 | 31/12/2012 | 10 | 365 | 450 | [64], [10, 11] |
-| MEaSUREs annual | 01/07/2000 | 30/06/2025 | 21 | 365 | 1000 | [12, 13] |
-| MEaSUREs multiyear | 01/07/1995 | 30/06/2022 | 4 | 730 | 450 | [14, 15] |
-| SHIFT<sup>c</sup> | 25/11/2014 | 20/01/2026 | 2033 | 13 | 200 | [16, 17] |
-| SID annual<sup>d</sup> | 01/01/2015 | 31/12/2024 | 10 | 365 | 250 | [18, 19] |
+| Bindschadler96 | 24/01/1985 | 12/12/1991 | 7 | 696 | 250-550 | [1] |
+| Bohlandler Scambos02 | 11/12/1986 | 16/03/1989 | 1 | 826 | 450-550 | [2] |
+| Brecher82<sup>a</sup> | 10/12/1978 | 06/02/1979 | 1 | 58 | 1400 | [3] |
+| C3S annual | 01/04/2021 | 31/03/2024 | 3 | 364 | 200 | [4] |
+| ENVEO ERS<sup>a</sup> | 11/01/1992 | 10/11/1999 | 13 | 1 | 500 | [5, 6] |
+| ENVEO PALSAR<sup>a</sup> | 29/09/2009 | 17/02/2011 | 2 | 46 | 50 | [7] |
+| ENVEO Sentinel-1 PIG<sup>a</sup> | 10/10/2014 | 21/08/2019 | 402 | 12 | 200 | [8] |
+| ENVEO TSX<sup>a</sup> | 26/06/2007 | 11/12/2016 | 125 | 11 | 50 | [7] |
+| ENVEO TSX PALSAR<sup>a</sup> | 02/07/2010 | 09/03/2012 | 1 | 616 | 50 | [7] |
+| ENVEO TSX Sentinel-1<sup>a</sup> | 31/10/2015 | 11/12/2016 | 1 | 407 | 50 | [7] |
+| ENVEO monthly | 01/10/2014 | 31/12/2021 | 87 | 30 | 200 | [8] |
+| ITS LIVE annual | 01/01/1985 | 31/12/2024 | 40 | 364 | 120 | [9, 10] |
+| Joughin PIG ERS<sup>a</sup> | 29/02/1992 | 04/03/2000 | 4 | 3 | 500 | [11] |
+| Joughin Sentinel-1<sup>a</sup> | 01/04/2015 | 29/09/2020 | 22 | 90 | 500 | [12] |
+| Joughin TSX<sup>a</sup> | 06/02/2009 | 24/12/2015 | 13 | 55 | 500 | [12] |
+| Li Totten<sup>a</sup> | 01/01/1963 | 31/12/1989 | 3 | 364 | 1000 | [13] |
+| MEaSUREs ASE | 01/01/1996 | 31/12/2012 | 10 | 364 | 450 | [14, 15] |
+| MEaSUREs annual | 01/07/2000 | 30/06/2025 | 21 | 364 | 1000 | [16, 17] |
+| MEaSUREs multiyear | 01/07/1995 | 30/06/2022 | 4 | 729 | 450 | [18, 19] |
+| Rosanova PIG74<sup>a</sup> | 24/01/1973 | 13/02/1975 | 1 | 750 | 500 | [20] |
+| SHIFT<sup>c</sup> | 25/11/2014 | 20/01/2026 | 2033 | 12 | 200 | [21, 22] |
+| SID annual<sup>d</sup> | 01/01/2015 | 31/12/2024 | 10 | 364 | 250 | [23, 24] |
+| Scambos PIG87<sup>a</sup> | 12/12/1986 | 18/12/1988 | 1 | 728 | 500 | [25] |
+| Scambos04 | 15/02/1986 | 05/01/1989 | 1 | 1055 | 500 | [26] |
+| ScambosBohlander DF | 14/01/1987 | 09/12/1995 | 2 | 688 | 200-250 | [27] |
+| Vaughan96<sup>a</sup> | 16/02/1986 | 01/01/1994 | 1 | 2876 | 5000 | [28] |
 
 <sup>a</sup> Error of all epochs and velocity components assumed to be 5% \
 <sup>b</sup> Error calculated by scaling the velocity magnitude error by the proportional contribution of each velocity component to the velocity magnitude. \
 <sup>c</sup> Error is provided as a scalar value defined as the standard deviation of apparent ice motion over bedrock areas. If provided error is NaN for a given epoch, the error is assumed to be 5%. \
 <sup>d</sup> No velocity component data provided, so are assumed to be NaN.
 
-Citations: <strong>[1]</strong> Rott et al.  (2018); <strong>[2]</strong> Rott et al. (2011); <strong>[3]</strong> Wuite et al. (2015); <strong>[4]</strong> Wuite et al. (2026); <strong>[5]</strong> Copernicus Climate Change Service, Climate Data Store (2020); <strong>[6]</strong> Gardner et al. (2025); <strong>[7]</strong> Gardner et al. (2022); <strong>[8]</strong> Joughin et al. (2021); <strong>[9]</strong> Li et al. (2023); <strong>[10]</strong> Rignot et al. (2014); <strong>[11]</strong> Mouginot et al. (2014); <strong>[12, 13]</strong> Mouginot et al. (2017a; 2017b); <strong>[14, 15]</strong> Rignot et al. (2022a; 2022b); <strong>[16]</strong> Davison et al. (2020); <strong>[17]</strong> Davison & Sole (2026); <strong>[18]</strong> Hogg et al. (2025); <strong>[19]</strong> Davison et al. (2023)
-
+_Citations:_ **[1]** Bindschadler et al. (1996); **[2]** Bohlander & Scambos (2002); **[3]** Brecher (1982); **[4]** Copernicus Climate Change Service, Climate Data Store (2020); **[5]** Rott et al. (2011); **[6]** Wuite et al. (2015); **[7]** Rott et al. (2018); **[8]** Wuite et al. (2026); **[9]** Gardner et al. (2025); **[10]** Gardner et al. (2022); **[11]** Joughin et al. (2003); **[12]** Joughin et al. (2021); **[13]** Li et al. (2023); **[14]** Rignot et al. (2014); **[15]** Mouginot et al. (2014); **[16, 17]** Mouginot et al. (2017a; 2017b); **[18, 19]** Rignot et al. (2022a; 2022b); **[20]** Rosanova & Luccitta (2001); **[21]** Davison et al. (2020); **[22]** Davison & Sole (2026); **[23]** Hogg et al. (2025); **[24]** Davison et al. (2023); **[25]** Scambos et al. (2003); **[26]** Scambos et al. (2004); **[27]** Bindschadler et al. (2004); **[28]** Vaughan & Jonas (1996).
 The sections below provide a brief overview of each of these Contributing Datasets.
 
 
@@ -637,7 +646,7 @@ Overview of the Joughin Sentinel-1 data over Pine Island Glacier.
 (antarctica-joughin-tsx)=
 ### Joughin TSX (Pine Island)
 
-The TerraSAR-X velocity estimates of Pine Island Glacier ice speed are available from 15th January 2009 to 15th January 2016 (dates are approximate). These data have an ambiguous temporal resolution of two to five months, so we assign a temporal resolution of 3.5 months. These measurements are described in [Joughin et al. (2021)](https://www.science.org/doi/10.1126/sciadv.abg3080) and the data are available from the supplementary information of that paper.
+The TerraSAR-X velocity estimates of Pine Island Glacier ice speed are available from 15th January 2009 to 15th January 2016 (dates are approximate). These measurements are described in [Joughin et al. (2021)](https://www.science.org/doi/10.1126/sciadv.abg3080) and the data are available from the supplementary information of that paper.
 
 ```{figure} ../_static/antarctica/verification_maps_Joughin_TSX.png
 ---
@@ -665,9 +674,42 @@ Overview of the Li et al. data over Totten Glacier.
 > Li, R., Cheng, Y., Chang, T., Gwyther, D.E., Forbes, M., An, L., Xia, M., Yuan, X., Qiao, G., Tong, X. and Ye, W., 2023. Satellite record reveals 1960s acceleration of Totten ice shelf in East Antarctica. Nature Communications, 14(1), p.4061. DOI: https://doi.org/10.1038/s41467-023-39588-x.
 
 
+(antarctica-historical)=
+### Historical velocity fields
+
+We include nine further data sources that provide satellite- and aerial-image derived velocity fields for different Antarctic ice streams and ice shelves. All but one of these Contributing Datasets include a single velocity field in the target location. The exception are the velocity fields of Pine Island Glacier from 1992 to 2000. described in [Joughin et al. (2003)](https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2003GL017609), for which there are four distinct measurement epochs.
+
+```{figure} ../_static/antarctica/Antarctica_historical_mean_speed.png
+---
+name: verification-maps-antarctica-historical-fig
+alt: Antarctica historical data overview
+---
+Overview of the historical velocity fields.
+```
+
+> Rosanova_PIG74 method: Rosanova, C. E., and B. K. Lucchitta, Acceleration of Pine Island Glacier Ice Shelf, Eos Trans. AGU, 82(47), 2001.
+
+> Scambos, T., B. Raup, and J. Bohlander, compilers, Antarctic ice velocity data archive. Boulder, CO: National Snow and Ice Data Center. Digital media (http://nsidc.org/data/velmap/), 2003.
+
+> Joughin, I., Rignot, E., Rosanova, C.E., Lucchitta, B.K. and Bohlander, J., 2003. Timing of recent accelerations of Pine Island glacier, Antarctica. Geophysical Research Letters, 30(13). DOI: https://doi.org/10.1029/2003GL017609.
+
+> Bohlander, J., & Scambos, T. A. 2002. Ice Flow and Morphology of Prestrud Inlet and Western Sulzberger Ice Shelf, West Antarctica. Polar Geography, 26(3), 227–234. https://doi.org/10.1080/789610194.
+
+> Bindschadler, R., Vornberger, P., Blankenship, D., Scambos, T. and Jacobel, R., 1996. Surface velocity and mass balance of Ice Streams D and E, West Antarctica. Journal of Glaciology, 42(142), pp.461-475. DOI: https://doi.org/10.3189/S0022143000003452.
+
+> Bindschadler, R., & Raymond, C. 2004. ""Antarctic Ice Velocity Data"" U.S. Antarctic Program (USAP) Data Center. doi: https://doi.org/10.7265/N5KS6PH5.
+
+> Scambos, T., Bohlander, J., Raup, B. and Haran, T., 2004. Glaciological characteristics of Institute Ice Stream using remote sensing. Antarctic Science, 16(2), pp.205-213. https://doi.org/10.1017/S0954102004001919.
+
+> Brecher, H.H., 1982. Photographic determination of surface velocities and elevations on Byrd Glacier. Antarctic Journal of the United States, 17(5), pp.79-81.
+
+> Vaughan, D.G., and M. Jonas, 1996. Measurements of velocity of Filchner-Ronne Ice Shelf. Filchner-Ronne Ice Shelf Programme (FRISP) Report No. 10. Ed. H Oerter. Pub. AWI, Bremerhaven. 111-116.
+
+
+
 (contributing_data_summary)=
 ## Summary
 
-Combined, these sources offer an extensive historical record of ice motion. For Greenland, the measurements span from July 1972 to the present, with epoch resolutions ranging from four days to one year. For the Antarctic Ice Sheet, the temporal record extends from 1963 to January 2026, with epoch resolutions ranging from two days to multiple years.
+Combined, these sources offer an extensive historical record of ice motion. For Greenland, the measurements span from July 1972 to September 2026 and with capacity for regular updates, with epoch resolutions ranging from four days to one year. For the Antarctic Ice Sheet, the temporal record extends from 1963 to January 2026, with epoch resolutions ranging from one day to multiple years.
 
-The data infrastructure is designed to accommodate ongoing data generation. Currently, only one Contributing Dataset for Greenland (PROMICE (Solgaard et al. 2021)) receives predictable, operational updates; these new data are automatically ingested into the Unified Dataset and made accessible via SHIVER with a delay of three days following data publication by PROMICE. Irregular updates from other sources (e.g., MEaSUREs, ITS_LIVE), as well as the integration of entirely new ice velocity products, will be incorporated periodically into future versions of the Unified Dataset.
+The data infrastructure is designed to accommodate ongoing data generation. Currently, only one Contributing Dataset for Greenland (PROMICE (Solgaard et al. 2021)) receives predictable, operational updates; these new data are automatically ingested into the Unified Dataset and made accessible via SHIVER with a delay of three days following data publication by PROMICE, though longer delays may occur. Irregular updates from other sources (e.g., MEaSUREs, ITS_LIVE), as well as the integration of entirely new ice velocity products, will be incorporated periodically into future versions of the Unified Dataset.

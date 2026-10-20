@@ -7,7 +7,7 @@ import sys
 import zarr
 import rioxarray
 import pickle
-from datetime import datetime
+from datetime import datetime, date
 import re
 
 # --- HELPERS ---
@@ -839,6 +839,7 @@ def preprocess_shift(epoch_dir, master_x, master_y):
 # Setup Paths globally so all functions can see them
 OUTPUT_ZARR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/greenland_multisource_velocity_spatial_200.zarr"
 CATALOG_FILE = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/master_epoch_catalog.pkl"
+TARGET_VERSION = "1.5.0"
 
 def build_catalog_and_skeleton():
     """Run ONCE by a single job to map files and create the Zarr structure."""
@@ -989,6 +990,10 @@ def build_catalog_and_skeleton():
         'y': (['y'], master_y.values, ds_master['y'].attrs),
         'x': (['x'], master_x.values, ds_master['x'].attrs),
     })
+        
+    ds_skeleton.attrs.update(ds_master.attrs)
+    ds_skeleton.attrs['dataset_version'] = TARGET_VERSION
+    ds_skeleton.attrs['last_updated'] = date.today().isoformat()
 
     for var in ['time', 'time_bnds']: ds_skeleton[var].encoding.clear()
     encoding = {

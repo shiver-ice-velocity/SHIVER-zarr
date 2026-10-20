@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../gui/overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -685,7 +685,7 @@ document.write(`
 <section id="data-loading-and-time-separations">
 <h2>3. Data Loading and Time Separations<a class="headerlink" href="#data-loading-and-time-separations" title="Permalink to this heading">#</a></h2>
 <p>Now we connect to the Zarr store.</p>
-<p>As has been mentioned earlier in this book, one important quirk of satellite-derived velocity data is that each velocity map represents an <em>average</em> speed over a specific time window (the time between two satellite acquisitions), not an instantaneous snapshot. To accurately map this data to a daily timeseries, we need to know account for that time separation.</p>
+<p>As has been mentioned elsewhere in these tutorials, one important quirk of satellite-derived velocity data is that each velocity map represents an <em>average</em> speed over a specific time window (the time between two satellite acquisitions), not an instantaneous snapshot. To accurately map this data to a daily timeseries, we need to know account for that time separation.</p>
 <p>We extract this time separation from the <code class="docutils literal notranslate"><span class="pre">time_bnds</span></code> variable then clip the data to our target glacier basin and load it into memory.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -945,7 +945,7 @@ Pre-processing complete.
 <section id="masking-detrending-and-principal-component-analysis">
 <h2>6. Masking, Detrending, and Principal Component Analysis<a class="headerlink" href="#masking-detrending-and-principal-component-analysis" title="Permalink to this heading">#</a></h2>
 <p>Now for the heavy lifting. We apply several masks to ensure we are only analyzing valid ice. We mask out rock outcrops, the ocean (using BedMachine and Bedmap3), areas moving too slowly to yield a reliable signal-to-noise ratio, and any pixels that required <em>too much</em> synthetic gap-filling based on the thresholds we set above.</p>
-<p>Once the data is clean, we flatten our 3D dataset <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> into a 2D matrix <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">pixels)</span></code>. We apply the linear detrending (as visualized in the previous step) across all pixels simultaneously.</p>
+<p>Once the data are clean, we flatten our 3D dataset <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> into a 2D matrix <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">pixels)</span></code>. We apply the linear detrending (as visualized in the previous step) across all pixels simultaneously.</p>
 <p>Finally, we run the PCA. The algorithm decomposes our observations of speed variability into a few dominant “Modes” of variability. Each mode consists of two parts:</p>
 <ul class="simple">
 <li><p><strong>Empirical Orthogonal Functions (EOFs):</strong> The spatial maps showing <em>where</em> this specific pattern of variability occurs.</p></li>
@@ -1093,7 +1093,7 @@ The actual physical velocity anomaly associated with a given mode at any given m
 <img alt="../_images/3c288a76415de872858c39f98ef744b56fdec6c25d67ae8f4160af136845cb13.png" src="../_images/3c288a76415de872858c39f98ef744b56fdec6c25d67ae8f4160af136845cb13.png" />
 </div>
 </div>
-<p>This analysis confirms that Leonardo Glacier undergoes significant seasonal flow variability that is highly synchronized across its fast-flowing main trunk. Breaking this down, Mode 1 captures a broad multi-year trend—highlighted by a prolonged period of minimum speeds from mid-2020 through 2022—with a low-amplitude seasonal signal superimposed. Meanwhile, Mode 3 isolates a higher-amplitude seasonal cycle with a distinct spatial divide: speed peaks during the summer at the glacier terminus, whereas speeds peak during the winter at higher elevations.</p>
+<p>This analysis confirms that Leonardo Glacier undergoes significant seasonal flow variability that is highly synchronized across its fast-flowing main trunk. Breaking this down, Mode 1 captures a broad multi-year trend—highlighted by a prolonged period of minimum speeds from mid-2020 through 2022—with a low-amplitude seasonal signal superimposed. Meanwhile, Mode 3 isolates a higher-amplitude seasonal cycle with a distinct spatial divide: speeds peak during the summer at the glacier terminus, whereas speeds peak during the winter at higher elevations.</p>
 </section>
 </section>
 

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Timeseries Explorer &#8212; SHeffield Ice Velocity ExploreR (SHIVER) - Cloud access to a unified dataset of satellite-derived ice surface velocity measurements for the Antarctica Ice Sheet and Greenland Ice Sheet</title>
+    <title>Time-series Explorer &#8212; SHeffield Ice Velocity ExploreR (SHIVER) - Cloud access to a unified dataset of satellite-derived ice surface velocity measurements for the Antarctica Ice Sheet and Greenland Ice Sheet</title>
   
   
   
@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'gui/timeseries_explore';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="NetCDF Extractor" href="netcdf_extract.html" />
+    <link rel="next" title="Data Cube Extractor" href="netcdf_extract.html" />
     <link rel="prev" title="Overview of the SHeffield Ice Velocity ExploreR application" href="overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -413,7 +413,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Timeseries Explorer</h1>
+    <h1>Time-series Explorer</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -441,14 +441,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="timeseries-explorer">
-<span id="shiver-timeseries"></span><h1>Timeseries Explorer<a class="headerlink" href="#timeseries-explorer" title="Permalink to this heading">#</a></h1>
+  <section id="time-series-explorer">
+<span id="shiver-timeseries"></span><h1>Time-series Explorer<a class="headerlink" href="#time-series-explorer" title="Permalink to this heading">#</a></h1>
 <section id="basic-usage">
 <span id="timeseries-basic-usage"></span><h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">#</a></h2>
-<p>The SHIVER Timeseries Explorer lets you quickly and easily visualize and export ice velocity timeseries anywhere on the Greenland and Antarctic ice sheets. Just navigate to your glacier of interest and click on the map to create a chart showing how ice flow has changed over time in that location.</p>
+<p>The SHIVER Time-series Explorer lets you quickly and easily visualize and export ice velocity time-series anywhere on the Greenland and Antarctic ice sheets. Just navigate to your glacier of interest and click on the map to create a chart showing how ice flow has changed over time in that location.</p>
 <p>After selecting a point, you can click-and-drag it to modify the position, or you can manually modify the coordinates in the site list. Alternatively, you can upload a shapefile containing a point or points to view time-series of ice velocity in those locations. You can select up to ten points to compare different locations.</p>
 <p>SHIVER allows you to examine ice flow changes in Greenland or Antarctica. You can navigate to your preferred ice sheet by clicking the Greenland button (<img alt="GreenlandIcon" src="../_images/greenlandIcon.svg" />) or the Antarctica button (<img alt="AntarcticaIcon" src="../_images/antarcticaIcon.svg" />).</p>
-<p><strong>The timeseries chart:</strong> After creating a chart you can click-and-drag in the chart area to zoom in on a particular section of the chart. Double click on the chart to reset the axes. Or use the zoom, pan and reset buttons in the top right of the chart to navigate. You can click the <img alt="PaletteIcon" src="../_images/paletteIcon.svg" /> icon to colour the data points either by site number or by data source.</p>
+<p><strong>The time-series chart:</strong> After creating a chart you can click-and-drag in the chart area to zoom in on a particular section of the chart. Double click on the chart to reset the axes. Or use the zoom, pan and reset buttons in the top right of the chart to navigate. You can click the <img alt="PaletteIcon" src="../_images/paletteIcon.svg" /> icon to colour the data points either by site number or by data source.</p>
 </section>
 <section id="uploading-files-uploadicon">
 <span id="timseries-file-upload"></span><h2>Uploading Files <img alt="UploadIcon" src="../_images/uploadIcon.svg" /><a class="headerlink" href="#uploading-files-uploadicon" title="Permalink to this heading">#</a></h2>
@@ -471,7 +471,7 @@ document.write(`
 <p>The advanced options allow you to control which variables and contributing datasets and variables are extracted from our data centre and how they are filtered before being displayed in the chart. See the <span class="xref myst">Greenland Data</span> and <span class="xref myst">Antarctic Data</span> documentation pages for details of each data source.</p>
 <p>You can modify the parameters used during the ice velocity extraction and filtering. You can adjust the ‘buffer’ placed around your selection point - larger buffers extract data from larger squares around your selection point. You can also adjust the timeseries smoothing parameters, such as the size of data gaps to fill and the size of the window used in the time-series smoothing.</p>
 <p>When you modify anything in the advanced options, your choices will be applied to all subsequent extraction locations. If you want to apply your advanced options to existing extraction locations, then click “Update All Timeseries”.</p>
-<p><strong>Buffer distance (m):</strong> When you click a location on the map, data are extracted from a small square centred on your chosen point. The size of that square is controlled by the buffer distance text box. The default value is 500 m, which produces a 1000 x 1000 m box (since we buffer outwards by 500 m from the chosen location). If you want to modify the buffer distance for all of the points, just change the value and click “Update All Timeseries”. If you want to modify the buffer distance for just one point, then change the value in the Site List table below the map.</p>
+<p><strong>Buffer distance (m):</strong> When you click a location on the map, data are extracted from a square centred on your chosen point. The size of that square is controlled by the buffer distance text box. The default value is 500 m, which produces a 1000 x 1000 m box (since we buffer outwards by 500 m from the chosen location). If you want to modify the buffer distance for all of the points, just change the value and click “Update All Timeseries”. If you want to modify the buffer distance for just one point, then change the value in the Site List table below the map.</p>
 <p><strong>Variables:</strong></p>
 <ul class="simple">
 <li><p><strong>speed:</strong> Extract horizontal ice surface velocity magnitude.</p></li>
@@ -489,7 +489,7 @@ All time-series extracted with SHIVER are smoothed using a Savitzky-Golay filter
 </section>
 <section id="navigating-interpreting-the-map">
 <span id="timeseries-map-interpret"></span><h2>Navigating &amp; Interpreting the Map<a class="headerlink" href="#navigating-interpreting-the-map" title="Permalink to this heading">#</a></h2>
-<p>When you first access the SHIVER Timeseries Explorer, you will see a map of Greenland with a long-term average ice speed estimate overlain. You can switch to a map of Antarctica by clicking the Antarctica button (<img alt="AntarcticaIcon" src="../_images/antarcticaIcon.svg" />) in the top-right of the map, or switch back to Greenland by clicking the Greenland button (<img alt="GreenlandIcon" src="../_images/greenlandIcon.svg" />).</p>
+<p>When you first access the SHIVER Time-series Explorer, you will see a map of Greenland with a long-term average ice speed estimate overlain. You can switch to a map of Antarctica by clicking the Antarctica button (<img alt="AntarcticaIcon" src="../_images/antarcticaIcon.svg" />) in the top-right of the map, or switch back to Greenland by clicking the Greenland button (<img alt="GreenlandIcon" src="../_images/greenlandIcon.svg" />).</p>
 <p>You can navigate the map by using your mouse scroller and by clicking and dragging the cursor to move around.</p>
 <p><strong>Data overlays:</strong> A long-term average ice speed estimate is shown on the map by default. You can remove that layer and display other overlays by clicking the “Map Layers &amp; Analysis” button (<img alt="LayersIcon" src="../_images/layersIcon.svg" />). There are two modes of layers: “Overview” layers and “Analysis” layers.</p>
 <p><strong>Overview layers</strong></p>
@@ -517,7 +517,7 @@ All time-series extracted with SHIVER are smoothed using a Savitzky-Golay filter
 </section>
 <section id="interpreting-the-chart">
 <span id="timeseries-chart-interpret"></span><h2>Interpreting the Chart<a class="headerlink" href="#interpreting-the-chart" title="Permalink to this heading">#</a></h2>
-<p>The retrieved data are displayed as both points and a line. Each point represents the average velocity in the selected location over a 6- or 12-day period centred on that time. The corresponding error in that velocity estimate is displayed on the point as a vertical line (indicating the range of potential velocity estimates at that time). The error is defined as the median velocity over bedrock regions at the time. A smoothed, daily velocity time-series is also plotted - this is linearly interpolated from the point data and then smoothed using a Savitzky-Golay filter.</p>
+<p>The retrieved data are displayed as both points and a line. Each point represents the average velocity in the selected location over a given period centred on the central date of the velocity acquisition or averaging period. The corresponding error in that velocity estimate is displayed on the point as a vertical line (indicating the range of potential velocity estimates at that time). A smoothed, daily velocity time-series is also plotted - this is linearly interpolated from the point data and then smoothed using a Savitzky-Golay filter.</p>
 <p>You can optionally add a linear trend line to each of the selected time-series by clicking the <img alt="TrendIcon" src="../_images/trendIcon.svg" /> button below the chart. This will add a dashed line to the chart and the retrieved trends and their significance level will be displayed in the legend. You can use the text boxes to adjust the time period over which the linear trend is calculated. Four levels of trend significance may be displayed in the legend:</p>
 <ul class="simple">
 <li><p><strong>ns</strong> Not significant.</p></li>
@@ -529,7 +529,7 @@ All time-series extracted with SHIVER are smoothed using a Savitzky-Golay filter
 </section>
 <section id="output">
 <span id="timeseries-output"></span><h2>Output<a class="headerlink" href="#output" title="Permalink to this heading">#</a></h2>
-<p>Clicking the map will produce a timeseries showing point data and a smoothed line. The point data provide the measurements taken directly from our ice velocity dataset. The line provides a smoothed representation of those measurements.</p>
+<p>Clicking the map will produce a time-series showing point data and a smoothed line. The point data provide the measurements taken directly from our ice velocity dataset. The line provides a smoothed representation of those measurements.</p>
 <p><img alt="GraphIcon" src="../_images/graphIcon.svg" /> <strong>Download the graph:</strong>
 You can download the graph showing your data by clicking the <img alt="GraphIcon" src="../_images/graphIcon.svg" /> button. This will download a .zip containing .png of the graph (or graphs is multiple variables are selected), along with a .txt file and a .csv detailing how to cite the data presented in the graph(s).</p>
 <p><img alt="ExcelIcon" src="../_images/excelIcon.svg" /> <strong>Download the data:</strong>
@@ -540,18 +540,18 @@ e.g., <code class="docutils literal notranslate"><span class="pre">Site_1_500m_6
 <em>where: gf24 means gap_fill=24 days, wr25 means raw window smoothing length of 25 days, wd25 means a daily window smoothing length of 25 days, and p2 means a second order polynomial in the savitzky-golay smoother was used.</em></p>
 <p>Each .xlsx file will contain three sheets:</p>
 <ul class="simple">
-<li><p><strong>Point Data:</strong> A timeseries of each velocity variable, velocity error, image pair time separation (days) and the number of finite values within the extraction area at each epoch. These form the points and whiskers plotted on the chart.</p></li>
-<li><p><strong>Daily Data:</strong> A timeseries of each velocity variable interpolated to daily values. This forms the smooth line on the chart.</p></li>
+<li><p><strong>Point Data:</strong> A time-series of each velocity variable, velocity error, image pair time separation (days) and the number of finite values within the extraction area at each epoch. These form the points and whiskers plotted on the chart.</p></li>
+<li><p><strong>Daily Data:</strong> A time-series of each velocity variable interpolated to daily values. This forms the smooth line on the chart.</p></li>
 <li><p><strong>Metadata:</strong> A table containing the site details.</p></li>
 </ul>
 <p><strong>Point data output variables:</strong>
 <em>Note: Only “Date”, “speed_m_yr”, “speed_error_m_yr”, “time_separation_days”, “pixel_count”, and “data_source” are exported by default. Other variables can be enabled for download within the Advanced Options menu, depending on the variables selected.</em></p>
 <ul class="simple">
 <li><p><strong>Date:</strong> The central date of the two images used to estimate ice speed.</p></li>
-<li><p><strong>speed_error_m_yr:</strong> An estimate of the global uncertainty in ice speed at this time period. Defined as the standard deviation of speed over bedrock regions at that time.</p></li>
-<li><p><strong>vx_error_m_yr:</strong> An estimate of the global uncertainty in easting ice velocity at this time period. Defined as the standard deviation of easting ice velocity over bedrock regions at that time.</p></li>
-<li><p><strong>vy_error_m_yr:</strong> An estimate of the global uncertainty in northing ice velocity at this time period. Defined as the standard deviation of northing ice velocity over bedrock regions at that time.</p></li>
-<li><p><strong>time_separation_days:</strong> The number of days between the two images used to estimate ice speed. So the first image was acquired on Date-Time_separation_days/2, and the second image on Date+Time_separation_days/2.</p></li>
+<li><p><strong>speed_error_m_yr:</strong> An estimate of the uncertainty in ice speed at this time period and location.</p></li>
+<li><p><strong>vx_error_m_yr:</strong> An estimate of the uncertainty in easting ice velocity at this time period and location.</p></li>
+<li><p><strong>vy_error_m_yr:</strong> An estimate of the uncertainty in northing ice velocity at this time period and location.</p></li>
+<li><p><strong>time_separation_days:</strong> The number of days between the two images used to estimate ice speed or the number of days during the averaging period for composite products. The date of the first image acquisition or start of the averaging period is Date-Time_separation_days/2, and the end date is Date+Time_separation_days/2.</p></li>
 <li><p><strong>pixel_count:</strong> The number of valid speed estimates in the extraction location. This will be 1 if buffer=0. Pixel resolution is 200 metres, so the maximum value for e.g. a 500 m buffer is 25 (1000 x 1000 metre region = 5 x 5 pixel region).</p></li>
 <li><p><strong>speed_m_yr:</strong> Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.</p></li>
 <li><p><strong>vx_m_yr:</strong> Horizontal ice surface easting velocity in metres per year (positive in the polar stereographic eastwards direction). If a buffer is used, the median velocity within the resulted area is used.</p></li>
@@ -562,7 +562,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">Site_1_500m_6
 <em>Note: Only “Date” and “s_filt” are exported by default. Other variables can be enabled for download within the Advanced Options menu.</em></p>
 <ul class="simple">
 <li><p><strong>Date:</strong> The date of the interpolated velocity.</p></li>
-<li><p><strong>speed_m_ye:</strong> Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.</p></li>
+<li><p><strong>speed_m_yr:</strong> Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.</p></li>
 <li><p><strong>vx_m_yr:</strong> Horizontal ice surface easting velocity in metres per year (positive in the polar stereographic eastwards direction). If a buffer is used, the median velocity within the resulted area is used.</p></li>
 <li><p><strong>vy_m_yr:</strong> Horizontal ice surface northing velocity in metres per year (positive in the polar stereographic northwards direction). If a buffer is used, the median velocity within the resulted area is used.</p></li>
 </ul>
@@ -643,7 +643,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">Site_1_500m_6
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NetCDF Extractor</p>
+        <p class="prev-next-title">Data Cube Extractor</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

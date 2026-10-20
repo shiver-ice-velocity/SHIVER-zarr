@@ -1,16 +1,16 @@
 (shiver-timeseries)=
-# Timeseries Explorer
+# Time-series Explorer
 
 (timeseries-basic-usage)=
 ### Basic Usage
 
-The SHIVER Timeseries Explorer lets you quickly and easily visualize and export ice velocity timeseries anywhere on the Greenland and Antarctic ice sheets. Just navigate to your glacier of interest and click on the map to create a chart showing how ice flow has changed over time in that location. 
+The SHIVER Time-series Explorer lets you quickly and easily visualize and export ice velocity time-series anywhere on the Greenland and Antarctic ice sheets. Just navigate to your glacier of interest and click on the map to create a chart showing how ice flow has changed over time in that location. 
 
 After selecting a point, you can click-and-drag it to modify the position, or you can manually modify the coordinates in the site list. Alternatively, you can upload a shapefile containing a point or points to view time-series of ice velocity in those locations. You can select up to ten points to compare different locations.
 
 SHIVER allows you to examine ice flow changes in Greenland or Antarctica. You can navigate to your preferred ice sheet by clicking the Greenland button ({{ greenlandIcon }}) or the Antarctica button ({{ antarcticaIcon }}).
 
-**The timeseries chart:** After creating a chart you can click-and-drag in the chart area to zoom in on a particular section of the chart. Double click on the chart to reset the axes. Or use the zoom, pan and reset buttons in the top right of the chart to navigate. You can click the {{ paletteIcon }} icon to colour the data points either by site number or by data source.
+**The time-series chart:** After creating a chart you can click-and-drag in the chart area to zoom in on a particular section of the chart. Double click on the chart to reset the axes. Or use the zoom, pan and reset buttons in the top right of the chart to navigate. You can click the {{ paletteIcon }} icon to colour the data points either by site number or by data source.
 
 (timseries-file-upload)=
 ### Uploading Files {{ uploadIcon }}
@@ -37,7 +37,7 @@ You can modify the parameters used during the ice velocity extraction and filter
 
 When you modify anything in the advanced options, your choices will be applied to all subsequent extraction locations. If you want to apply your advanced options to existing extraction locations, then click "Update All Timeseries".
 
-**Buffer distance (m):** When you click a location on the map, data are extracted from a small square centred on your chosen point. The size of that square is controlled by the buffer distance text box. The default value is 500 m, which produces a 1000 x 1000 m box (since we buffer outwards by 500 m from the chosen location). If you want to modify the buffer distance for all of the points, just change the value and click "Update All Timeseries". If you want to modify the buffer distance for just one point, then change the value in the Site List table below the map.
+**Buffer distance (m):** When you click a location on the map, data are extracted from a square centred on your chosen point. The size of that square is controlled by the buffer distance text box. The default value is 500 m, which produces a 1000 x 1000 m box (since we buffer outwards by 500 m from the chosen location). If you want to modify the buffer distance for all of the points, just change the value and click "Update All Timeseries". If you want to modify the buffer distance for just one point, then change the value in the Site List table below the map.
 
 **Variables:**
 * **speed:** Extract horizontal ice surface velocity magnitude.
@@ -54,7 +54,7 @@ All time-series extracted with SHIVER are smoothed using a Savitzky-Golay filter
 (timeseries-map-interpret)=
 ### Navigating & Interpreting the Map
 
-When you first access the SHIVER Timeseries Explorer, you will see a map of Greenland with a long-term average ice speed estimate overlain. You can switch to a map of Antarctica by clicking the Antarctica button ({{ antarcticaIcon }}) in the top-right of the map, or switch back to Greenland by clicking the Greenland button ({{ greenlandIcon }}).
+When you first access the SHIVER Time-series Explorer, you will see a map of Greenland with a long-term average ice speed estimate overlain. You can switch to a map of Antarctica by clicking the Antarctica button ({{ antarcticaIcon }}) in the top-right of the map, or switch back to Greenland by clicking the Greenland button ({{ greenlandIcon }}).
 
 You can navigate the map by using your mouse scroller and by clicking and dragging the cursor to move around.
 
@@ -88,7 +88,7 @@ When you click a point on the map an icon will appear showing the extraction loc
 (timeseries-chart-interpret)=
 ### Interpreting the Chart
 
-The retrieved data are displayed as both points and a line. Each point represents the average velocity in the selected location over a 6- or 12-day period centred on that time. The corresponding error in that velocity estimate is displayed on the point as a vertical line (indicating the range of potential velocity estimates at that time). The error is defined as the median velocity over bedrock regions at the time. A smoothed, daily velocity time-series is also plotted - this is linearly interpolated from the point data and then smoothed using a Savitzky-Golay filter. 
+The retrieved data are displayed as both points and a line. Each point represents the average velocity in the selected location over a given period centred on the central date of the velocity acquisition or averaging period. The corresponding error in that velocity estimate is displayed on the point as a vertical line (indicating the range of potential velocity estimates at that time). A smoothed, daily velocity time-series is also plotted - this is linearly interpolated from the point data and then smoothed using a Savitzky-Golay filter. 
 
 You can optionally add a linear trend line to each of the selected time-series by clicking the {{ trendIcon }} button below the chart. This will add a dashed line to the chart and the retrieved trends and their significance level will be displayed in the legend. You can use the text boxes to adjust the time period over which the linear trend is calculated. Four levels of trend significance may be displayed in the legend:
 
@@ -102,7 +102,7 @@ Use the text boxes below the chart to adjust the x- and y-axis limits. This will
 (timeseries-output)=
 ### Output
 
-Clicking the map will produce a timeseries showing point data and a smoothed line. The point data provide the measurements taken directly from our ice velocity dataset. The line provides a smoothed representation of those measurements.
+Clicking the map will produce a time-series showing point data and a smoothed line. The point data provide the measurements taken directly from our ice velocity dataset. The line provides a smoothed representation of those measurements.
 
 {{ graphIcon }} **Download the graph:** 
 You can download the graph showing your data by clicking the {{ graphIcon }} button. This will download a .zip containing .png of the graph (or graphs is multiple variables are selected), along with a .txt file and a .csv detailing how to cite the data presented in the graph(s). 
@@ -116,18 +116,18 @@ e.g., `Site_1_500m_67.123_-48.567_gf24_wr25_wd25_p2.xslx`
 *where: gf24 means gap_fill=24 days, wr25 means raw window smoothing length of 25 days, wd25 means a daily window smoothing length of 25 days, and p2 means a second order polynomial in the savitzky-golay smoother was used.*
 
 Each .xlsx file will contain three sheets:
-* **Point Data:** A timeseries of each velocity variable, velocity error, image pair time separation (days) and the number of finite values within the extraction area at each epoch. These form the points and whiskers plotted on the chart.
-* **Daily Data:** A timeseries of each velocity variable interpolated to daily values. This forms the smooth line on the chart.
+* **Point Data:** A time-series of each velocity variable, velocity error, image pair time separation (days) and the number of finite values within the extraction area at each epoch. These form the points and whiskers plotted on the chart.
+* **Daily Data:** A time-series of each velocity variable interpolated to daily values. This forms the smooth line on the chart.
 * **Metadata:** A table containing the site details.
 
 **Point data output variables:**
 *Note: Only "Date", "speed_m_yr", "speed_error_m_yr", "time_separation_days", "pixel_count", and "data_source" are exported by default. Other variables can be enabled for download within the Advanced Options menu, depending on the variables selected.*
 
 * **Date:** The central date of the two images used to estimate ice speed.
-* **speed_error_m_yr:** An estimate of the global uncertainty in ice speed at this time period. Defined as the standard deviation of speed over bedrock regions at that time.
-* **vx_error_m_yr:** An estimate of the global uncertainty in easting ice velocity at this time period. Defined as the standard deviation of easting ice velocity over bedrock regions at that time.
-* **vy_error_m_yr:** An estimate of the global uncertainty in northing ice velocity at this time period. Defined as the standard deviation of northing ice velocity over bedrock regions at that time.
-* **time_separation_days:** The number of days between the two images used to estimate ice speed. So the first image was acquired on Date-Time_separation_days/2, and the second image on Date+Time_separation_days/2.
+* **speed_error_m_yr:** An estimate of the uncertainty in ice speed at this time period and location. 
+* **vx_error_m_yr:** An estimate of the uncertainty in easting ice velocity at this time period and location.
+* **vy_error_m_yr:** An estimate of the uncertainty in northing ice velocity at this time period and location.  
+* **time_separation_days:** The number of days between the two images used to estimate ice speed or the number of days during the averaging period for composite products. The date of the first image acquisition or start of the averaging period is Date-Time_separation_days/2, and the end date is Date+Time_separation_days/2.
 * **pixel_count:** The number of valid speed estimates in the extraction location. This will be 1 if buffer=0. Pixel resolution is 200 metres, so the maximum value for e.g. a 500 m buffer is 25 (1000 x 1000 metre region = 5 x 5 pixel region).
 * **speed_m_yr:** Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.
 * **vx_m_yr:** Horizontal ice surface easting velocity in metres per year (positive in the polar stereographic eastwards direction). If a buffer is used, the median velocity within the resulted area is used.
@@ -138,7 +138,7 @@ Each .xlsx file will contain three sheets:
 *Note: Only "Date" and "s_filt" are exported by default. Other variables can be enabled for download within the Advanced Options menu.*
 
 * **Date:** The date of the interpolated velocity.
-* **speed_m_ye:** Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.
+* **speed_m_yr:** Horizontal ice surface velocity magnitude in metres per year. If a buffer is used, the median speed within the resulted area is used.
 * **vx_m_yr:** Horizontal ice surface easting velocity in metres per year (positive in the polar stereographic eastwards direction). If a buffer is used, the median velocity within the resulted area is used.
 * **vy_m_yr:** Horizontal ice surface northing velocity in metres per year (positive in the polar stereographic northwards direction). If a buffer is used, the median velocity within the resulted area is used.
 

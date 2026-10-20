@@ -1,5 +1,5 @@
 (shiver-netcdf-extract)=
-# NetCDF Extractor
+# Data Cube Extractor
 
 (netcdf-basic-usage)=
 ## Basic Usage

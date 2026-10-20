@@ -153,6 +153,33 @@ CITATIONS_CONFIG = {
 			],
 			"Li_Totten": [
 				"Li et al. (Totten) method: Li, R., Cheng, Y., Chang, T., Gwyther, D.E., Forbes, M., An, L., Xia, M., Yuan, X., Qiao, G., Tong, X. and Ye, W., 2023. Satellite record reveals 1960s acceleration of Totten ice shelf in East Antarctica. Nature Communications, 14(1), p.4061. DOI: https://doi.org/10.1038/s41467-023-39588-x."
+			],
+            "Rosanova_PIG74": [
+				"Rosanova_PIG74 method: Rosanova, C. E., and B. K. Lucchitta, Acceleration of Pine Island Glacier Ice Shelf, Eos Trans. AGU, 82(47), 2001"
+			],
+            "Scambos_PIG87": [
+				"Scambos_PIG87 data: Scambos, T., B. Raup, and J. Bohlander, compilers, Antarctic ice velocity data archive. Boulder, CO: National Snow and Ice Data Center. Digital media (http://nsidc.org/data/velmap/), 2003."
+			],
+            "Joughin_PIG_ERS": [
+				"Joughin_PIG_ERS method: Joughin, I., Rignot, E., Rosanova, C.E., Lucchitta, B.K. and Bohlander, J., 2003. Timing of recent accelerations of Pine Island glacier, Antarctica. Geophysical Research Letters, 30(13). DOI: https://doi.org/10.1029/2003GL017609"
+			],
+            "Bohlander_Scambos02": [
+				"Bohlander_Scambos02 method: Bohlander, J., & Scambos, T. A. 2002. Ice Flow and Morphology of Prestrud Inlet and Western Sulzberger Ice Shelf, West Antarctica. Polar Geography, 26(3), 227–234. https://doi.org/10.1080/789610194"
+			],
+            "Bindschadler96": [
+				"Bindschadler96 method: Bindschadler, R., Vornberger, P., Blankenship, D., Scambos, T. and Jacobel, R., 1996. Surface velocity and mass balance of Ice Streams D and E, West Antarctica. Journal of Glaciology, 42(142), pp.461-475. DOI: https://doi.org/10.3189/S0022143000003452"
+			],
+            "ScambosBohlander_DF": [
+				"ScambosBohlander_DF data: Bindschadler, R., & Raymond, C. 2004. ""Antarctic Ice Velocity Data"" U.S. Antarctic Program (USAP) Data Center. doi: https://doi.org/10.7265/N5KS6PH5"
+			],
+            "Scambos04": [
+				"Scambos04 method: Scambos, T., Bohlander, J., Raup, B. and Haran, T., 2004. Glaciological characteristics of Institute Ice Stream using remote sensing. Antarctic Science, 16(2), pp.205-213. https://doi.org/10.1017/S0954102004001919"
+			],
+            "Brecher82": [
+				"Brecher82 method: Brecher, H.H., 1982. Photographic determination of surface velocities and elevations on Byrd Glacier. Antarctic Journal of the United States, 17(5), pp.79-81"
+			],
+            "Vaughan96": [
+				"Vaughan96 method: Vaughan, D.G., and M. Jonas, 1996. Measurements of velocity of Filchner-Ronne Ice Shelf. Filchner-Ronne Ice Shelf Programme (FRISP) Report No. 10. Ed. H Oerter. Pub. AWI, Bremerhaven. 111-116"
 			]
 	}
 }

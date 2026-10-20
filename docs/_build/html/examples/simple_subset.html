@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../gui/overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -439,7 +439,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>The example below demonstrates how to extract a 3D subset over Sermeq Kujalleq for the 2021 calendar year. Because the data is loaded lazily using Dask, this spatial and temporal crop is fast and requires no download. Of course, if we wanted to go further and perform operations on the subset or export it as a NetCDF, we would need to download it or at least stream it to NetCDF.</p>
+<p>The example below demonstrates how to extract a 3D subset over Sermeq Kujalleq for the 2021 calendar year. Because the data are loaded lazily using Dask, this spatial and temporal crop is fast and requires no download. Of course, if we wanted to go further and perform operations on the subset or export it as a NetCDF, we would need to download it or at least stream it to NetCDF.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>

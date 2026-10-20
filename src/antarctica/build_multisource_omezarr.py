@@ -7,7 +7,7 @@ import sys
 import zarr
 import rioxarray
 import pickle
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import re
 
 # --- Paths ---
@@ -23,10 +23,13 @@ LI_TOTTEN_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Antarctica/Totten"
 ENVEO_S1_PIG_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Antarctica/ENVEO_selected/pine_island/ais_cci_iv_PIG_S1t065_20141010_20190821_v1_1/mag"
 ENVEO_OTHERS_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Antarctica/ENVEO_selected/others"
 SHIFT_DIR = "/mnt/parscratch/users/gg1bjd/SCADI/output/Sentinel1/Antarctica/mosaic/subregions/peninsula/date_pairs"
+HISTORICAL_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Antarctica/Historical"
 
 OUTPUT_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Antarctica/multisource_zarr"
 OUTPUT_ZARR = os.path.join(OUTPUT_DIR, "antarctica_multisource_velocity_spatial.zarr")
 CATALOG_FILE = os.path.join(OUTPUT_DIR, "master_epoch_catalog_spatial.pkl")
+
+TARGET_VERSION = "1.5.0"
 
 # Ensure output directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -494,11 +497,52 @@ def preprocess_joughin_s1(vx_path, master_x, master_y):
     return ds
 
 # --- 9. Joughin TSX Processing ---
+#def parse_joughin_tsx_time(file_path):
+#    match = re.search(r'TSX\.(\d{4}-\d{2}-\d{2})\.', os.path.basename(file_path))
+#    mid_dt = datetime.strptime(match.group(1), "%Y-%m-%d")
+#    start_dt = mid_dt - timedelta(days=75)
+#    end_dt = mid_dt + timedelta(days=75)
+#\    return np.datetime64(mid_dt), np.array([np.datetime64(start_dt), np.datetime64(end_dt)])
+
+
+# Dictionary containing filename dates ('YYYY-MM-DD') and corresponding TSX (start, end) timestamps
+TSX_METADATA_TABLE = {
+    "2009-03-31": ("18/02/2009 09:43", "14/04/2009 09:44"),
+    "2009-09-15": ("16/11/2009 09:18", "01/01/2010 09:44"),
+    "2010-11-30": ("27/10/2010 09:44", "10/12/2010 09:44"),
+    "2011-11-30": ("21/10/2011 09:18", "08/12/2011 09:44"),
+    "2012-03-31": ("04/03/2012 03:47", "28/04/2012 03:47"),
+    "2012-07-01": ("10/06/2012 04:04", "24/08/2012 09:18"),
+    "2013-06-01": ("28/05/2013 04:04", "12/07/2013 03:47"),
+    "2014-01-30": ("20/11/2013 04:04", "12/03/2014 09:44"),
+    "2014-08-01": ("07/06/2014 03:47", "03/09/2014 03:47"),
+    "2015-01-01": ("10/12/2014 04:04", "26/02/2015 03:47"),
+    "2015-06-01": ("19/05/2015 03:56", "04/08/2015 03:56"),
+    "2015-09-15": ("01/09/2015 03:48", "26/10/2015 03:47"),
+    "2015-11-01": ("31/10/2015 03:56", "11/01/2016 03:47"),
+}
+
 def parse_joughin_tsx_time(file_path):
+    # Read date string from filename
     match = re.search(r'TSX\.(\d{4}-\d{2}-\d{2})\.', os.path.basename(file_path))
-    mid_dt = datetime.strptime(match.group(1), "%Y-%m-%d")
-    start_dt = mid_dt - timedelta(days=75)
-    end_dt = mid_dt + timedelta(days=75)
+    if not match:
+        raise ValueError(f"Could not extract date pattern from {file_path}")
+    
+    date_key = match.group(1)  # e.g., '2009-03-31'
+    
+    # Find row in lookup table
+    if date_key not in TSX_METADATA_TABLE:
+        raise ValueError(f"Date '{date_key}' not found in metadata table.")
+    
+    # Read start date and end date from dictionary
+    start_str, end_str = TSX_METADATA_TABLE[date_key]
+    start_dt = datetime.strptime(start_str, "%d/%m/%Y %H:%M")
+    end_dt = datetime.strptime(end_str, "%d/%m/%Y %H:%M")
+    
+    # Calculate mid_dt as midpoint
+    mid_dt = start_dt + (end_dt - start_dt) / 2
+    
+    # Return outputs 
     return np.datetime64(mid_dt), np.array([np.datetime64(start_dt), np.datetime64(end_dt)])
 
 def preprocess_joughin_tsx(vx_path, master_x, master_y):
@@ -1247,6 +1291,133 @@ def preprocess_shift(file_path, epoch_dir, date_str, master_x, master_y):
     return ds
 
 
+# --- 18. Historical Processing ---
+HISTORICAL_METADATA = [
+    {"file": "PIGLS74.vx.tif", "date1": "24/01/1973", "date2": "13/02/1975", "source": "Rosanova_PIG74"}, # Rosanova, C. E., and B. K. Lucchitta, Acceleration of Pine Island Glacier Ice Shelf, Eos Trans. AGU, 82(47), 2001
+    {"file": "PIGLS87.vx.tif", "date1": "21/12/1986", "date2": "18/12/1988", "source": "Scambos_PIG87"}, # Scambos, T., B. Raup, and J. Bohlander, compilers, Antarctic ice velocity data archive. Boulder, CO: National Snow and Ice Data Center. Digital media (http://nsidc.org/data/velmap/), 2003
+    {"file": "PIG92.vx.tif", "date1": "29/02/1992", "date2": "06/03/1992", "source": "Joughin_PIG_ERS"}, # Joughin, I., Rignot, E., Rosanova, C.E., Lucchitta, B.K. and Bohlander, J., 2003. Timing of recent accelerations of Pine Island glacier, Antarctica. Geophysical Research Letters, 30(13).
+    {"file": "PIG94.vx.tif", "date1": "22/01/1994", "date2": "25/01/1994", "source": "Joughin_PIG_ERS"}, 
+    {"file": "PIG96.vx.tif", "date1": "21/10/1995", "date2": "25/04/1996", "source": "Joughin_PIG_ERS"}, 
+    {"file": "PIG00.vx.tif", "date1": "20/11/1999", "date2": "04/03/2000", "source": "Joughin_PIG_ERS"},
+    {"file": "sulzberger_vx.tif", "date1": "11/12/1986", "date2": "16/03/1989", "source": "Bohlander_Scambos02"}, # Bohlander, J., & Scambos, T. A. (2002). Ice Flow and Morphology of Prestrud Inlet and Western Sulzberger Ice Shelf, West Antarctica. Polar Geography, 26(3), 227–234. https://doi.org/10.1080/789610194
+    {"file": "prestud_vx.tif", "date1": "14/01/1987", "date2": "16/03/1989", "source": "Bohlander_Scambos02"},
+    {"file": "streamd1_vx.tif", "date1": "15/01/1987", "date2": "12/12/1991", "source": "Bindschadler96"}, # Bindschadler, R., Vornberger, P., Blankenship, D., Scambos, T. and Jacobel, R., 1996. Surface velocity and mass balance of Ice Streams D and E, West Antarctica. Journal of Glaciology, 42(142), pp.461-475.
+    {"file": "streamd2_vx.tif", "date1": "24/01/1985", "date2": "12/12/1991", "source": "Bindschadler96"},
+    {"file": "streamd3_vx.tif", "date1": "16/01/1987", "date2": "12/12/1988", "source": "Bindschadler96"},
+    {"file": "streamde_vx.tif", "date1": "16/01/1987", "date2": "12/12/1988", "source": "Bindschadler96"},
+    {"file": "lowde6_vx.tif", "date1": "15/01/1987", "date2": "05/02/1990", "source": "Bindschadler96"},
+    {"file": "lowde7_vx.tif", "date1": "15/02/1989", "date2": "05/02/1990", "source": "Bindschadler96"},
+    {"file": "lowde8_vx.tif", "date1": "15/01/1987", "date2": "15/02/1989", "source": "Bindschadler96"},
+    {"file": "streamdsp_vx.tif", "date1": "20/01/1994", "date2": "09/12/1995", "source": "ScambosBohlander_DF"}, # only reference provided is: Scambos, T.A., and J.A. Bohlander. "Ice velocity mapping of Ice Streams D and F: flow dynamics and changes. (in prep)
+    {"file": "streamf_vx.tif", "date1": "14/01/1987", "date2": "05/02/1990", "source": "ScambosBohlander_DF"},   # so let's use the only place this data can be downloaded from instead: Bindschadler, R., & Raymond, C. (2004) "Antarctic Ice Velocity Data" U.S. Antarctic Program (USAP) Data Center. doi: https://doi.org/10.7265/N5KS6PH5.
+    {"file": "institute_vx.tif", "date1": "15/02/1986", "date2": "05/01/1989", "source": "Scambos04"}, # Scambos, T., Bohlander, J., Raup, B. and Haran, T., 2004. Glaciological characteristics of Institute Ice Stream using remote sensing. Antarctic Science, 16(2), pp.205-213.
+    {"file": "ByrdGlacier_1978-1979_velmap_vx.tif", "date1": "10/12/1978", "date2": "06/02/1979", "source": "Brecher82"}, # Brecher, H.H., 1982. Photographic determination of surface velocities and elevations on Byrd Glacier. Antarctic Journal of the United States, 17(5), pp.79-81. (( 56 days apart during the 77/79 Antarctic summer; the actual dates are given in this pdf: https://s3.amazonaws.com/Antarctica/AJUS/AJUSvXIVn5/AJUSvXIVn5p88.pdf))
+    {"file": "filch_ronne_vx.tif", "date1": "16/02/1986", "date2": "01/01/1994", "source": "Vaughan96"} # Vaughan, D.G., and M. Jonas, 1996. Measurements of velocity of Filchner-Ronne Ice Shelf. Filchner-Ronne Ice Shelf Programme (FRISP) Report No. 10. Ed. H Oerter. Pub. AWI, Bremerhaven. 111-116. Date1 is given in Swithinbank et al 1988: https://www.cambridge.org/core/journals/annals-of-glaciology/article/glaciological-map-of-filchnerronne-ice-shelf-antarctica/28B933A9FD82A24F54E4B6E0FBC95737. No dates for date2 are available, only the year. 
+]
+
+def parse_historical_time(date1_str, date2_str):
+    """Parses time bounds from the DD/MM/YYYY format."""
+    start_dt = datetime.strptime(date1_str, "%d/%m/%Y")
+    end_dt = datetime.strptime(date2_str, "%d/%m/%Y")
+    mid_dt = start_dt + (end_dt - start_dt) / 2
+    return np.datetime64(mid_dt), np.array([np.datetime64(start_dt), np.datetime64(end_dt)])
+
+def find_historical_error_paths(vx_path, vy_path):
+    """
+    Searches for matching error geotiffs using possible naming variations
+    ('err_vx'/'err_vy' or 'errvx'/'errvy', preserving '_' or '.' delimiters).
+    """
+    candidate_patterns = [
+        # Direct replacement of vx -> err_vx / errvx
+        (re.sub(r'vx(\.tif)$', r'err_vx\1', vx_path, flags=re.IGNORECASE),
+         re.sub(r'vy(\.tif)$', r'err_vy\1', vy_path, flags=re.IGNORECASE)),
+        (re.sub(r'vx(\.tif)$', r'errvx\1', vx_path, flags=re.IGNORECASE),
+         re.sub(r'vy(\.tif)$', r'errvy\1', vy_path, flags=re.IGNORECASE)),
+        # Delimiter-aware replacements
+        (re.sub(r'([._])vx(\.tif)$', r'\1err_vx\2', vx_path, flags=re.IGNORECASE),
+         re.sub(r'([._])vy(\.tif)$', r'\1err_vy\2', vy_path, flags=re.IGNORECASE)),
+        (re.sub(r'([._])vx(\.tif)$', r'\1errvx\2', vx_path, flags=re.IGNORECASE),
+         re.sub(r'([._])vy(\.tif)$', r'\1errvy\2', vy_path, flags=re.IGNORECASE)),
+    ]
+    
+    for err_vx, err_vy in candidate_patterns:
+        if os.path.exists(err_vx) and os.path.exists(err_vy):
+            return err_vx, err_vy
+
+    return None, None
+
+
+def preprocess_historical(file_path, source_label, master_x, master_y):
+    vx_path = file_path
+    # Dynamically match either .vx.tif or _vx.tif and convert to vy equivalent
+    vy_path = re.sub(r'vx(\.tif)$', r'vy\1', vx_path, flags=re.IGNORECASE)
+    
+    # Load raw velocity data
+    vx_da = rioxarray.open_rasterio(vx_path).squeeze(drop=True)
+    vy_da = rioxarray.open_rasterio(vy_path).squeeze(drop=True)
+    
+    # Align vy to vx to ensure coordinates perfectly match before math
+    vy_da = vy_da.reindex_like(vx_da, method='nearest')
+    
+    # Calculate speed (magnitude)
+    speed_raw = np.sqrt(vx_da**2 + vy_da**2)
+    
+    # Mask invalid data
+    valid_mask = (vx_da > -200000) & (vx_da < 200000) & \
+                 (vy_da > -200000) & (vy_da < 200000)
+                 
+    speed_masked = speed_raw.where(valid_mask, np.nan)
+    vx_masked = vx_da.where(valid_mask, np.nan)
+    vy_masked = vy_da.where(valid_mask, np.nan)
+    
+    # Check for error geotiffs
+    err_vx_path, err_vy_path = find_historical_error_paths(vx_path, vy_path)
+
+    if err_vx_path and err_vy_path:
+        err_vx_da = rioxarray.open_rasterio(err_vx_path).squeeze(drop=True).reindex_like(vx_da, method='nearest')
+        err_vy_da = rioxarray.open_rasterio(err_vy_path).squeeze(drop=True).reindex_like(vx_da, method='nearest')
+
+        vx_error_masked = err_vx_da.where(valid_mask, np.nan)
+        vy_error_masked = err_vy_da.where(valid_mask, np.nan)
+        
+        # Quadrature combination for speed error magnitude
+        speed_error_masked = np.sqrt(vx_error_masked**2 + vy_error_masked**2)
+    else:
+        # Fallback estimation (10%) if error rasters are not found on disk
+        speed_error_masked = speed_masked * 0.10
+        vx_error_masked = np.abs(vx_masked) * 0.10
+        vy_error_masked = np.abs(vy_masked) * 0.10
+    
+    # Interpolate to master grid
+    speed_interp = speed_masked.interp(x=master_x, y=master_y, method="nearest")
+    vx_interp = vx_masked.interp(x=master_x, y=master_y, method="nearest")
+    vy_interp = vy_masked.interp(x=master_x, y=master_y, method="nearest")
+    speed_error_interp = speed_error_masked.interp(x=master_x, y=master_y, method="nearest")
+    vx_error_interp = vx_error_masked.interp(x=master_x, y=master_y, method="nearest")
+    vy_error_interp = vy_error_masked.interp(x=master_x, y=master_y, method="nearest")
+    
+    # Extract values and round
+    speed_vals = np.round(speed_interp.values, 1)
+    vx_vals = np.round(vx_interp.values, 1)
+    vy_vals = np.round(vy_interp.values, 1)
+    speed_error_vals = np.round(speed_error_interp.values, 1)
+    vx_error_vals = np.round(vx_error_interp.values, 1)
+    vy_error_vals = np.round(vy_error_interp.values, 1)
+    
+    # Package into standardized Dataset using the dynamic source_label
+    ds = xr.Dataset({
+        'speed': (['time', 'y', 'x'], np.expand_dims(speed_vals, axis=0), {'units': 'm/year'}),
+        'vx': (['time', 'y', 'x'], np.expand_dims(vx_vals, axis=0), {'units': 'm/year'}),
+        'vy': (['time', 'y', 'x'], np.expand_dims(vy_vals, axis=0), {'units': 'm/year'}),
+        'speed_error': (['time', 'y', 'x'], np.expand_dims(speed_error_vals, axis=0), {'units': 'm/year'}),
+        'vx_error': (['time', 'y', 'x'], np.expand_dims(vx_error_vals, axis=0), {'units': 'm/year'}),
+        'vy_error': (['time', 'y', 'x'], np.expand_dims(vy_error_vals, axis=0), {'units': 'm/year'}),
+        'data_source': (['time'], np.array([source_label], dtype="<U50"))
+    }, coords={'y': (['y'], master_y.values), 'x': (['x'], master_x.values)})
+    
+    return ds
+
+
 # --- HPC BUILDER LOGIC ---
 
 def build_catalog_and_skeleton():
@@ -1308,6 +1479,12 @@ def build_catalog_and_skeleton():
     epochs.extend(catalog_enveo_tsx_palsar(ENVEO_OTHERS_DIR))
     # 17. SHIFT
     epochs.extend(catalog_shift(SHIFT_DIR))
+    # 18. Historical data
+    for meta in HISTORICAL_METADATA:
+        historical_file = os.path.join(HISTORICAL_DIR, meta["file"])
+        if os.path.exists(historical_file):
+            t, tb = parse_historical_time(meta["date1"], meta["date2"])
+            epochs.append({'time': t, 'time_bnds': tb, 'source': meta["source"], 'path': historical_file})
         
     # Sort ALL chronologically by the true base time
     epochs = sorted(epochs, key=lambda d: d['time'])
@@ -1372,6 +1549,10 @@ def build_catalog_and_skeleton():
             'y': (['y'], master_y.values, ds_master['y'].attrs),
             'x': (['x'], master_x.values, ds_master['x'].attrs),
         })
+            
+        ds_skeleton.attrs.update(ds_master.attrs)
+        ds_skeleton.attrs['dataset_version'] = TARGET_VERSION
+        ds_skeleton.attrs['last_updated'] = date.today().isoformat()
 
         for var in ['time', 'time_bnds']: ds_skeleton[var].encoding.clear()
         encoding = {
@@ -1449,6 +1630,7 @@ def process_worker(target_source, batch_start=None, batch_end=None):
         elif ep['source'] == 'ENVEO_TSX_Sentinel-1': ds_slice = preprocess_enveo_tsx_s1(ep['path'], master_x, master_y)
         elif ep['source'] == 'ENVEO_TSX_PALSAR': ds_slice = preprocess_enveo_tsx_palsar(ep['path'], master_x, master_y)
         elif ep['source'] == 'SHIFT': ds_slice = preprocess_shift(ep['path'], ep['epoch_dir'], ep['date_str'], master_x, master_y)
+        elif ep['source'] in ['Rosanova_PIG74', 'Scambos_PIG87', 'Joughin_PIG_ERS', 'Bohlander_Scambos02', 'Bindschadler96', 'ScambosBohlander_DF', 'Scambos04', 'Brecher82', 'Vaughan96']: ds_slice = preprocess_historical(ep['path'], ep['source'], master_x, master_y)
             
         # Push single epoch values sequentially across all initialized resolution tiers
         level = 0

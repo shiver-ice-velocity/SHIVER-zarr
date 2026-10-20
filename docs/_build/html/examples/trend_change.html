@@ -192,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">SHIVER Graphical User Interface</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../gui/overview.html">Overview of the SHeffield Ice Velocity ExploreR application</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Timeseries Explorer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">NetCDF Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/timeseries_explore.html">Time-series Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gui/netcdf_extract.html">Data Cube Extractor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Programmatic Examples</span></p>
 <ul class="current nav bd-sidenav">
@@ -463,7 +463,7 @@ document.write(`
 <blockquote>
 <div><p><em>Tip: If you run the cell below, an HTML representation of the <code class="docutils literal notranslate"><span class="pre">client</span></code> will appear. Clicking the <strong>Dashboard link</strong> opens a new tab where you can watch Dask distribute the tasks across your CPU cores in real-time</em></p>
 </div></blockquote>
-<p>By default, Dask tries to maximise throughout by requesting many Zarr chunks simultaneously. Over plain HTTP, this can overwhelm local TCP socket limits and router state tables, causing dropped packets and truncated downloads mid-stream, which would end the computation. Depending on your connection, it can be necessary to limit the number of total worker execution threads, cap the number of open sockets and limit how many asynchronous chunks each thread can request at once.</p>
+<p>By default, Dask tries to maximise throughput by requesting many Zarr chunks simultaneously. Over plain HTTP, this can overwhelm local TCP socket limits and router state tables, causing dropped packets and truncated downloads mid-stream, which would end the computation. Depending on your connection, it can be necessary to limit the number of total worker execution threads, cap the number of open sockets and limit how many asynchronous chunks each thread can request at once.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
@@ -506,13 +506,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\gg1bjd\AppData\Local\anaconda3\envs\shiver_env\Lib\site-packages\distributed\node.py:188: UserWarning: Port 8787 is already in use.
-Perhaps you already have a cluster running?
-Hosting the HTTP server on port 52182 instead
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dask Dashboard: http://127.0.0.1:52182/status
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dask Dashboard: http://127.0.0.1:8787/status
 </pre></div>
 </div>
 </div>
@@ -533,7 +527,7 @@ Hosting the HTTP server on port 52182 instead
 <p>There are two major reasons for this design choice:</p>
 <ol class="arabic simple">
 <li><p><strong>Multi-dimensional vectorization:</strong> Standard functions like <code class="docutils literal notranslate"><span class="pre">scipy.stats.linregress</span></code> are designed to work on 1D arrays (a single pixel at a time). If we used a for loop to apply a 1D function across this many spatial pixels, it would take a little too long for this example. By writing the math out using NumPy primitives and specifying <code class="docutils literal notranslate"><span class="pre">axis=-1</span></code> (the time dimension), we evaluate the trend for an entire 3D block of data (y, x, time) simultaneously at C-level speed.</p></li>
-<li><p><strong>Missing data handling:</strong> Ice velocity fields derived from satellite imagery always suffers from some data gaps. By using <code class="docutils literal notranslate"><span class="pre">np.nanmean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.nansum</span></code>, our manual regression ignores these missing data slices without throwing errors. Of course, this means we are actually calculating a trend through varying numbers of data points and varying time periods in each pixel. To make this analysis robust, we would need to identify which pixels had sufficient data that was sufficiently spread over the time period of interest to calculate a representative trend. However, since this is just an example to illustrate the process, we will skip those important details here and we’ll approximate the areas with <em>good</em> data using the p-value.</p></li>
+<li><p><strong>Missing data handling:</strong> Ice velocity fields derived from satellite imagery always suffer from some data gaps. By using <code class="docutils literal notranslate"><span class="pre">np.nanmean</span></code> and <code class="docutils literal notranslate"><span class="pre">np.nansum</span></code>, our manual regression ignores these missing data slices without throwing errors. Of course, this means we are actually calculating a trend through varying numbers of data points and varying time periods in each pixel. To make this analysis robust, we would need to identify which pixels had sufficient data that was sufficiently spread over the time period of interest to calculate a representative trend. However, since this is just an example to illustrate the process, we will skip those important details here and we’ll approximate the areas with <em>good</em> data using the p-value.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -733,7 +727,7 @@ Hosting the HTTP server on port 52182 instead
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building task graphs for all periods...
-Computing metrics via Dask... (Check dashboard)
+Computing metrics via Dask... (Check dashboard for progress)
 </pre></div>
 </div>
 </div>
@@ -840,7 +834,7 @@ Loading and clipping vector shapefile...
     <span class="p">)</span>
     
     <span class="c1"># c. Plot DEM contours</span>
-    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">dem_masked_for_contours</span><span class="o">.</span><span class="n">values</span><span class="p">))</span> <span class="o">+</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">dem_masked_for_contours</span><span class="o">.</span><span class="n">values</span><span class="p">))</span> <span class="o">+</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
     <span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">dem_masked_for_contours</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dem_masked_for_contours</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">dem_masked_for_contours</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
                     <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;#FFB347&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;#FFB347&#39;</span><span class="p">)</span>
@@ -875,7 +869,7 @@ Loading and clipping vector shapefile...
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generating publication-quality figure...
 </pre></div>
 </div>
-<img alt="../_images/21748c3e13e175449a92d361187116068dcb0ea2dea683fab79791bad40f1f52.png" src="../_images/21748c3e13e175449a92d361187116068dcb0ea2dea683fab79791bad40f1f52.png" />
+<img alt="../_images/4e25d62361971da8f141ee6286c3e250f6687d5da7d7b986c5b5fa5fb1e74536.png" src="../_images/4e25d62361971da8f141ee6286c3e250f6687d5da7d7b986c5b5fa5fb1e74536.png" />
 </div>
 </div>
 <p>Which is neat because it broadly agrees with the results of Tedstone et al. (2015) and Williams et al. (2020), showing a long-term deceleration of ice in some parts of the ablation zome of this land-terminating sector of west Greenland until around 2020, followed by a period of acceleration across the same area.</p>
