@@ -409,7 +409,7 @@ The sections below provide a brief overview of each of these Contributing Datase
 (antarctica-shift)=
 ### SHIFT
 
-The SHIFT data provide 6- and 12-day snapshots of ice speed over the Antarctic Peninsula derived from feature intensity of Sentinel-1 image pairs from 2014 to 2026. The SHIFT processing pipeline is described in detail in the [SHIFT Documentation Page](/documentation/shift).
+The SHIFT data provide 6- and 12-day snapshots of ice speed over the Antarctic Peninsula derived from feature intensity of Sentinel-1 image pairs from 2014 to 2026. The SHIFT processing pipeline is described in detail in [Davison et al. (2020)](https://doi.org/10.1029/2019JF005492).
 
 ```{figure} ../_static/antarctica/verification_maps_SHIFT.png
 ---
@@ -552,7 +552,7 @@ The MEaSUREs annual data provide estimates of ice speed for all of Antarctica fr
 
 ```{figure} ../_static/antarctica/verification_maps_MEaSUREs_annual.png
 ---
-name: verification-maps-measures-annual-fig
+name: antarctica-verification-maps-measures-annual-fig
 alt: MEaSUREs annual data overview
 ---
 Overview of the MEaSUREs annual data.
@@ -586,7 +586,7 @@ The ITS_LIVE annual data provide annual (calendar year) averages of ice speed ov
 
 ```{figure} ../_static/antarctica/verification_maps_ITS_LIVE_annual.png
 ---
-name: verification-maps-its-live-annual-fig
+name: antarctica-verification-maps-its-live-annual-fig
 alt: ITS_LIVE annual data overview
 ---
 Overview of the Antarctica ITS_LIVE annual data.

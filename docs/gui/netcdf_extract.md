@@ -50,7 +50,7 @@ The overview layers panel allows you to control the basemap and long-term averag
 The analysis layers panel allows you to display and compare all ice sheet-wide maps of ice flow in our multi-source dataset. This allows you to explore maps of ice motion from any time period, as well as the long-term average maps available in the "Overview" panel. The panel also allows you to calculate and display the change in ice speed between any two maps of ice motion, so you can examine how Greenland and Antarctica have sped up and slowed down in different locations over time. The slider at the bottom of the panel allows you to adjust the colour scale, to maximise the visibility of patterns in your area of interest. 
 
 * *Variable:* Choose "Speed", "Speed Trend" or "Measurement Count".
-* *Data Source:* Select which data source to analyse. See the [Greenland Data](/documentation/greenland) and [Antarctic Data](/documentation/antarctic) documentation pages for details of each data source.
+* *Data Source:* Select which data source to analyse.See the [Greenland Data](greenland_data) and [Antarctic Data](antarctica_data) documentation pages for details of each data source.
 * *Measurement Epoch:* If analysing "Speed" you can choose to display a map of speed from any measurement epoch, or the long-term average from your selected data source.
 * *Calculate Speed Change:* If analysing "Speed" you can optionally calculate and display a map of speed change compared to any other map of speed. Red areas correspond to speed-up and blue areas correspond to slow-down.
 

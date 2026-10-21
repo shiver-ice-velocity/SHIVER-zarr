@@ -9,7 +9,7 @@ alt: Zarr gif
 Credit: https://www.earthmover.io/blog/what-is-zarr.
 ```
 
-Much of the following text is based on more comprehensive descriptions of Zarr in [zarr.dev](zarr.dev) and [earthmover.io](earthmover.io).
+Much of the following text is based on more comprehensive descriptions of Zarr in [zarr.dev](https://zarr.dev) and [earthmover.io](https://earthmover.io).
 
 **Zarr** is a powerful open-source, cloud-native protocol for storing chunked, compressed N-dimensional arrays (Miles et al. 2026). It is designed for performance, interoperability and cloud computing or other parallel computing application. It enables high-throughput distributed I/O, allows concurrent read/write from multiple threads or processes. In a world where data are abundant, traditional data formats can become a bottleneck in a workflow - Zarr removes that bottleneck.
 

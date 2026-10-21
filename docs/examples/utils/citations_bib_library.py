@@ -7,18 +7,17 @@ CITATIONS_DB = {
         "type": "misc",
         "author": "Davison, B. J.",
         "year": "2026",
-        "title": "The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets (Version v[specify version number])",
+        "title": "The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets",
         "publisher": "Zenodo",
         "doi": "10.5281/zenodo.21375859",
         "howpublished": "Dataset"
     },
     "davison_shiver_inprep": {
-        "type": "article",
+        "type": "unpublished",
         "author": "Davison, B. J. and others", 
         "year": "in prep",
         "title": "The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets",
-        "journal": "[specify journal]",
-        "doi": "10.xxxx/XXXXXXX"
+        "note": "Manuscript in preparation"
     },
     
     # --- SHIFT ---
