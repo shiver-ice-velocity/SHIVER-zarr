@@ -99,11 +99,18 @@ def append_new_data_to_pyramid(new_files):
         
     print(f"Detected {len(new_files)} new PROMICE files. Beginning OME-Zarr append...")
     
-    # 1. Inspect existing Zarr store to find pyramid levels
+    # 1. Inspect existing Zarr store to find pyramid levels and preserve existing attributes
     z_store = zarr.open(OUTPUT_ZARR, mode='r')
     existing_levels = sorted([int(k) for k in z_store.group_keys() if k.isdigit()])
     print(f"Targeting existing Zarr pyramid levels: {existing_levels}")
     
+    # Preserve existing root attributes (dataset_version, last_updated, OME multiscales metadata)
+    existing_root_attrs = dict(z_store.attrs)
+    existing_level_attrs = {}
+    for lvl in existing_levels:
+        if str(lvl) in z_store:
+            existing_level_attrs[str(lvl)] = dict(z_store[str(lvl)].attrs)
+
     existing_epochs = []
     if os.path.exists(CATALOG_FILE):
         with open(CATALOG_FILE, 'rb') as f:
@@ -148,6 +155,9 @@ def append_new_data_to_pyramid(new_files):
         
     print(f"Concatenating {len(batch_datasets)} files into a single batch for appending...", flush=True)
     ds_batch = xr.concat(batch_datasets, dim='time')
+
+    # Clear global attributes from ds_batch so NetCDF metadata doesn't pollute group attributes
+    ds_batch.attrs.clear()
             
     # --- STEP B: Iterate through levels, coarsen batch, and append ---
     for level in existing_levels:
@@ -155,16 +165,9 @@ def append_new_data_to_pyramid(new_files):
         
         # Coarsen spatial dimensions for levels > 0 (retains all 1D metadata intact)
         if level > 0:
-            ds_coarsened = ds_batch.copy()
-            for var in ['speed', 'vx', 'vy', 'speed_error', 'vx_error', 'vy_error']:
-                if var in ds_coarsened and 'y' in ds_coarsened[var].dims and 'x' in ds_coarsened[var].dims:
-                    ds_coarsened[var] = ds_coarsened[var].coarsen(x=2, y=2, boundary='pad').mean(keep_attrs=True)
-                    
-            ds_coarsened = ds_coarsened.assign_coords({
-                'x': ds_batch['x'].coarsen(x=2, boundary='pad').mean(keep_attrs=True),
-                'y': ds_batch['y'].coarsen(y=2, boundary='pad').mean(keep_attrs=True)
-            })
-            ds_batch = ds_coarsened  # Update pointer for next iteration
+            ds_batch = ds_batch.coarsen(x=2, y=2, boundary='pad').mean(keep_attrs=True)
+            # Ensure global dataset attributes remain clean after coarsening
+            ds_batch.attrs.clear()
             
         # Drop fixed spatial variables so we don't conflict with target group
         ds_level_write = ds_batch.drop_vars(['x', 'y', 'spatial_ref'], errors='ignore')
@@ -175,12 +178,27 @@ def append_new_data_to_pyramid(new_files):
         # Append batch to specific pyramid level group
         ds_level_write.to_zarr(OUTPUT_ZARR, group=str(level), append_dim='time', mode='a')
         
-    # --- STEP C: Re-consolidate 1D metadata arrays into single chunks per group ---
-    print("Re-consolidating 1D metadata arrays into single chunks across all pyramid levels...", flush=True)
-    z_root = zarr.open(OUTPUT_ZARR, mode='a')
+    # --- STEP C: Restore attributes & re-consolidate 1D metadata arrays ---
+    print("Restoring store metadata and re-consolidating 1D metadata arrays...", flush=True)
+    z_root = zarr.open_group(OUTPUT_ZARR, mode='a')
+
+    # Restore root group attributes (dataset_version, last_updated, OME multiscales)
+    if existing_root_attrs:
+        z_root.attrs.update(existing_root_attrs)
+
+    dim_map = {
+        'time': ('time',),
+        'time_bnds': ('time', 'bnds'),
+        'data_source': ('time',)
+    }
 
     for level in existing_levels:
-        grp = z_root[str(level)]
+        grp_key = str(level)
+        grp = z_root[grp_key]
+        
+        # Restore level group attributes if present
+        if grp_key in existing_level_attrs:
+            grp.attrs.update(existing_level_attrs[grp_key])
         
         for var_name in ['time', 'time_bnds', 'data_source']:
             if var_name in grp:
@@ -188,13 +206,15 @@ def append_new_data_to_pyramid(new_files):
                 
                 full_data = arr[:]
                 saved_attrs = dict(arr.attrs)
+                dims = dim_map.get(var_name)
                 
-                # Overwrite array as a single chunk covering full updated length
+                # Overwrite array as a single chunk with explicit Zarr v3 dimension_names
                 grp.create_array(
                     name=var_name,
                     data=full_data,
                     chunks=full_data.shape,
                     attributes=saved_attrs,
+                    dimension_names=dims,
                     overwrite=True
                 )
     

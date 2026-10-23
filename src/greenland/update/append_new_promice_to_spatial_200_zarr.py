@@ -245,6 +245,18 @@ def append_new_data(new_files):
     for var in ds_batch.variables:
         ds_batch[var].encoding.clear()
         
+    # Read and preserve existing root group attributes from target Zarr store
+    existing_root_attrs = {}
+    if os.path.exists(OUTPUT_ZARR):
+        try:
+            z_existing = zarr.open_group(OUTPUT_ZARR, mode='r')
+            existing_root_attrs = dict(z_existing.attrs)
+        except Exception as e:
+            print(f"Warning: Could not read existing root attributes: {e}")
+
+    # Clear global attributes on ds_batch so NetCDF metadata doesn't overwrite group attrs
+    ds_batch.attrs.clear()
+
     print("Writing batch append to Zarr store...", flush=True)
     ds_batch.to_zarr(OUTPUT_ZARR, append_dim='time', mode='a')
     
@@ -257,6 +269,16 @@ def append_new_data(new_files):
     print("Re-consolidating 1D metadata arrays into single chunks...", flush=True)
     z_root = zarr.open_group(OUTPUT_ZARR, mode='a')
 
+    # Restore root group attributes (dataset_version, last_updated, etc.)
+    if existing_root_attrs:
+        z_root.attrs.update(existing_root_attrs)
+
+    dim_map = {
+        'time': ('time',),
+        'time_bnds': ('time', 'bnds'),
+        'data_source': ('time',)
+    }
+
     for var_name in ['time', 'time_bnds', 'data_source']:
         if var_name in z_root:
             arr = z_root[var_name]
@@ -264,13 +286,15 @@ def append_new_data(new_files):
             # Read updated array into memory and preserve attributes
             full_data = arr[:]
             saved_attrs = dict(arr.attrs)
+            dims = dim_map.get(var_name)
             
-            # Overwrite array as a single chunk covering full new length
+            # Re-create array with explicit Zarr v3 dimension_names
             z_root.create_array(
                 name=var_name,
                 data=full_data,
                 chunks=full_data.shape,
                 attributes=saved_attrs,
+                dimension_names=dims,
                 overwrite=True
             )
 

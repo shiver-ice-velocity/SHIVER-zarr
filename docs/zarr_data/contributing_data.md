@@ -84,7 +84,7 @@ alt: MEaSUREs monthly data overview
 Overview of the Greenland MEaSUREs monthly data.
 ```
 
-> Joughin, I. (2023). MEaSUREs Greenland Monthly Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0731, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/EGKZX6FXXM4P. Date Accessed 04-21-2026.
+> Joughin, I. 2023. MEaSUREs Greenland Monthly Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0731, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/EGKZX6FXXM4P. Date Accessed 04-21-2026.
 
 > Joughin, I., B. Smith, I. Howat, T. Scambos, and T. Moon. 2010. Greenland flow variability from icesheet-wide velocity mapping, Journal of Glaciology. 56. 415-430. https://doi.org/10.3189/002214310792447734.
 
@@ -103,7 +103,7 @@ alt: MEaSUREs quarterly data overview
 Overview of the Greenland MEaSUREs quarterly data.
 ```
 
-> Joughin, I. (2023). MEaSUREs Greenland Quarterly Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0727, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/V5KW64S63OSN. Date Accessed 04-21-2026.
+> Joughin, I. 2023. MEaSUREs Greenland Quarterly Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0727, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/V5KW64S63OSN. Date Accessed 04-21-2026.
 
 > Joughin, I., B. Smith, I. Howat, T. Scambos, and T. Moon. 2010. Greenland flow variability from icesheet-wide velocity mapping, Journal of Glaciology. 56. 415-430. https://doi.org/10.3189/002214310792447734.
 
@@ -122,7 +122,7 @@ alt: MEaSUREs winter data overview
 Overview of the Greenland MEaSUREs winter data.
 ```
 
-> Joughin, I., Smith, B., Howat, I. & Scambos, T. (2015). MEaSUREs Greenland Ice Sheet Velocity Map from InSAR Data. (NSIDC-0478, Version 2). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/OC7B04ZM9G6Q. Date Accessed 04-23-2026.
+> Joughin, I., Smith, B., Howat, I. & Scambos, T. 2015. MEaSUREs Greenland Ice Sheet Velocity Map from InSAR Data. (NSIDC-0478, Version 2). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/OC7B04ZM9G6Q. Date Accessed 04-23-2026.
 
 > Joughin, I., B. Smith, I. Howat, T. Scambos, and T. Moon. 2010. Greenland flow variability from icesheet-wide velocity mapping, Journal of Glaciology. 56. 415-430. https://doi.org/10.3189/002214310792447734.
 
@@ -142,7 +142,7 @@ alt: MEaSUREs annual data overview
 Overview of the Greenland MEaSUREs annual data.
 ```
 
-> Joughin, I. (2023). MEaSUREs Greenland Annual Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0725, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/USBL3Z8KF9C3. Date Accessed 04-21-2026.
+> Joughin, I. 2023. MEaSUREs Greenland Annual Ice Sheet Velocity Mosaics from SAR and Landsat. (NSIDC-0725, Version 5). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/USBL3Z8KF9C3. Date Accessed 04-21-2026.
 
 > Joughin, I., B. Smith, I. Howat, T. Scambos, and T. Moon. 2010. Greenland flow variability from icesheet-wide velocity mapping, Journal of Glaciology. 56. 415-430. https://doi.org/10.3189/002214310792447734.
 
@@ -164,7 +164,7 @@ Overview of the Greenland ITS_LIVE annual data.
 
 > Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., López L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
 
-> Gardner, A. S., Fahnestock, M. & Scambos, T. (2022). MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
+> Gardner, A. S., Fahnestock, M. & Scambos, T. 2022. MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
 
 (greenland_mouginot_annual)=
 ### Mouginot Annual
@@ -194,7 +194,7 @@ alt: C3S annual data overview
 Overview of the Greenland C3S annual data.
 ```
 
-> Copernicus Climate Change Service, Climate Data Store (2020): Ice sheet velocity for Antarctica and Greenland derived from satellite observations. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.0b96b838 (Accessed on 26-Apr-2026).
+> Copernicus Climate Change Service, Climate Data Store. 2020. Ice sheet velocity for Antarctica and Greenland derived from satellite observations. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.0b96b838 (Accessed on 26-Apr-2026).
 
 (greenland_esa_winter)=
 ### ESA CCI Winter
@@ -209,7 +209,7 @@ alt: ESA CCI Winter data overview
 Overview of the ESA CCI Winter data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Greenland Ice Velocity Map, Winter 2017-2018, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/eaed9fba86c44e9c854dfbdec9d16b99
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Greenland Ice Velocity Map, Winter 2017-2018, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/eaed9fba86c44e9c854dfbdec9d16b99
 
 (greenland_esa_ers1_91)=
 ### ESA CCI ERS-1 (1991-1992)
@@ -224,7 +224,7 @@ alt: ESA CCI ERS-1 (1991-1992) data overview
 Overview of the ESA CCI ERS-1 (1991-1992) data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2016): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Northern Drainage basin from ERS-1 for winter 1991-1992, v1.1 (June 2016 release). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e4f39152bc50466f8887bd2a343cac93
+> ESA Greenland Ice Sheet CCI project team. 2016. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Northern Drainage basin from ERS-1 for winter 1991-1992, v1.1 (June 2016 release). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e4f39152bc50466f8887bd2a343cac93
 
 (greenland_esa_ers2_95)=
 ### ESA CCI ERS-2 (1995-1996)
@@ -239,7 +239,7 @@ alt: ESA CCI ERS-2 (1995-1996) data overview
 Overview of the ESA CCI ERS-2 (1995-1996) data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2016): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Margin from ERS-2 for winter 1995-1996, v1.1 (June 2016 release). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/0b23b3c771db4fff8958196432d978cb
+> ESA Greenland Ice Sheet CCI project team. 2016 ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Margin from ERS-2 for winter 1995-1996, v1.1 (June 2016 release). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/0b23b3c771db4fff8958196432d978cb
 
 (greenland_esa_palsar)=
 ### ESA CCI ALOS-PALSAR
@@ -254,7 +254,7 @@ alt: ESA CCI ALOS-PALSAR data overview
 Overview of the ESA CCI ALOS-PALSAR data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2016): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Margin from the PALSAR instrument for 2006-2011, v1.1 (June 2016 version). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/84b5cf8380894d719b61deac5abf3bae
+> ESA Greenland Ice Sheet CCI project team. 2016 ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity data for the Greenland Margin from the PALSAR instrument for 2006-2011, v1.1 (June 2016 version). Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/84b5cf8380894d719b61deac5abf3bae
 
 (greenland_esa_ers_env)=
 ### ESA CCI ERS-1/2 & Envisat
@@ -269,21 +269,21 @@ alt: ESA CCI ERS-1/2 & Envisat data overview
 Overview of the ESA CCI ERS-1/2 & Envisat data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn glacier from ERS-1, ERS2 and ENVISAT data for 1992-2010, v1.2. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/a0d9764a3068439b997c42928ef739d2
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn glacier from ERS-1, ERS2 and ENVISAT data for 1992-2010, v1.2. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/a0d9764a3068439b997c42928ef739d2
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Petermann glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/22254b5608ab430fa360d0ff7e71c34e
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Petermann glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/22254b5608ab430fa360d0ff7e71c34e
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Kangerlussuaq glacier from ERS-1, ERS-2, Envisat for 1992-2008, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/723067f77b8b43609079d721e3b4a3c7
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Kangerlussuaq glacier from ERS-1, ERS-2, Envisat for 1992-2008, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/723067f77b8b43609079d721e3b4a3c7
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Helheim glacier from ERS-1, ERS-2 and Envisat data for 1996-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/17767027aa484505b7b732aee6619c74
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Helheim glacier from ERS-1, ERS-2 and Envisat data for 1996-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/17767027aa484505b7b732aee6619c74
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Hagen glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/27fc79c6e65f4302a18ec9788605c246
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Hagen glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/27fc79c6e65f4302a18ec9788605c246
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series of the Storstrommen glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/8381d3f3998143fd9b53c7086b7061e3
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series of the Storstrommen glacier from ERS-1, ERS-2 and Envisat data for 1991-2010, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/8381d3f3998143fd9b53c7086b7061e3
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Zachariae and 79Fjord area from ERS-1, ERS-2 and Envisat data for 1991-2011, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/2457272c747f4d6ca33cb40833bd9cc2
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Zachariae and 79Fjord area from ERS-1, ERS-2 and Envisat data for 1991-2011, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/2457272c747f4d6ca33cb40833bd9cc2
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Upernavik glacier from ERS-1, ERS-2, Envisat and PALSAR data for 1992-2010, v1.2. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/8d475d7d92894765ad1ddda16de0e610
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Upernavik glacier from ERS-1, ERS-2, Envisat and PALSAR data for 1992-2010, v1.2. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/8d475d7d92894765ad1ddda16de0e610
 
 (greenland_esa_csk)=
 ### ESA CCI CSK
@@ -298,7 +298,7 @@ alt: ESA CCI CSK data overview
 Overview of the ESA CCI CSK data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn Glacier from COSMO-SkyMed for 2012-2014, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/2e54b40f184b44c797db36e192d2b679
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn Glacier from COSMO-SkyMed for 2012-2014, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/2e54b40f184b44c797db36e192d2b679
 
 (greenland_esa_sentinel2)=
 ### ESA CCI Sentinel-2
@@ -313,23 +313,23 @@ alt: ESA CCI Sentinel-2 data overview
 Overview of the ESA CCI Sentinel-2 data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Petermann Glacier between 2017-05-01 and 2017-09-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/94f3670150de4bac90773806e26646f2
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Petermann Glacier between 2017-05-01 and 2017-09-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/94f3670150de4bac90773806e26646f2
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Kangerlussuaq Glacier between 2017-07-21 and 2017-08-20, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/aae643e1a7614c24b6b604dea82cad93
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Kangerlussuaq Glacier between 2017-07-21 and 2017-08-20, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/aae643e1a7614c24b6b604dea82cad93
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Jakobshavn Glacier between 2017-06-03 and 2017-09-08, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/cfe3102659f34d33b123b2a0043e4068
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Jakobshavn Glacier between 2017-06-03 and 2017-09-08, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/cfe3102659f34d33b123b2a0043e4068
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Helheim Glacier between 2017-05-01 and 2017-08-29, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/1e3fcdc14e2246c69fc54f0e1fe7a6ca
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Helheim Glacier between 2017-05-01 and 2017-08-29, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/1e3fcdc14e2246c69fc54f0e1fe7a6ca
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Zachariae Glacier between 2017-06-25 and 2017-08-10, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/ada968fd392d49fbbb07ac84eeb23ac6
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Zachariae Glacier between 2017-06-25 and 2017-08-10, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/ada968fd392d49fbbb07ac84eeb23ac6
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Hagen Glacier between 2017-06-30 and 2017-08-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e7fa45e785a64481960c3b140038c948
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Hagen Glacier between 2017-06-30 and 2017-08-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e7fa45e785a64481960c3b140038c948
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Døcker Smith Glacier between 2016-05-08 and 2016-05-18, generated using Sentinel-2 data, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/88d02eb5a6c14952aa88028894d8a69c
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Døcker Smith Glacier between 2016-05-08 and 2016-05-18, generated using Sentinel-2 data, v1.0. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/88d02eb5a6c14952aa88028894d8a69c
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the 79Fjord Glacier between 2017-06-25 and 2017-08-10, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/f31e8e988c4144bebe13892b53d08e42
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the 79Fjord Glacier between 2017-06-25 and 2017-08-10, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/f31e8e988c4144bebe13892b53d08e42
 
-> ESA Greenland Ice Sheet CCI project team (2018): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Upernavik Glacier between 2017-07-15 and 2017-08-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/84faf575c8e841a3a16476b05cbd657d
+> ESA Greenland Ice Sheet CCI project team. 2018. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Optical ice velocity of the Upernavik Glacier between 2017-07-15 and 2017-08-14, generated using Sentinel-2 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/84faf575c8e841a3a16476b05cbd657d
 
 (greenland_esa_sentinel1)=
 ### ESA CCI Sentinel-1
@@ -344,23 +344,23 @@ alt: ESA CCI Sentinel-1 data overview
 Overview of the ESA CCI Sentinel-1 data.
 ```
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Petermann Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/81332b9a10f14bda8a1a83b6463bb6de
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Petermann Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/81332b9a10f14bda8a1a83b6463bb6de
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Kangerlussuaq Glacier for 2015-2017 from Sentinel-1, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/925e3f0e807243e2936cc492f5207af6
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Kangerlussuaq Glacier for 2015-2017 from Sentinel-1, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/925e3f0e807243e2936cc492f5207af6
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn Glacier for 2014-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e1c0c34e0cc942898b3626efd1dcc095
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Jakobshavn Glacier for 2014-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e1c0c34e0cc942898b3626efd1dcc095
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Helheim Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/0e289294f2c141bca545cd9d7fcb62d0
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Helheim Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/0e289294f2c141bca545cd9d7fcb62d0
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Zachariae Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e3dbdc32f7b6476e949d52d8d3990205
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Zachariae Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/e3dbdc32f7b6476e949d52d8d3990205
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Hagen Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/5c9935b8b8854baeb7a256446293c03b
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Hagen Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/5c9935b8b8854baeb7a256446293c03b
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Storstroemmen Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/1dd4c30a78d84e628cd8097bae3148fd
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Storstroemmen Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/1dd4c30a78d84e628cd8097bae3148fd
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the 79-Fjord Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/41e2300068b44fa190f24272dc08dcd0
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the 79-Fjord Glacier for 2015-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/41e2300068b44fa190f24272dc08dcd0
 
-> ESA Greenland Ice Sheet CCI project team (2019): ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Upernavik Glacier for 2014-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/ef5c6596cae548c6aea9dea181c7624c
+> ESA Greenland Ice Sheet CCI project team. 2019. ESA Greenland Ice Sheet Climate Change Initiative (Greenland_Ice_Sheet_cci): Ice Velocity time series for the Upernavik Glacier for 2014-2017 from Sentinel-1 data, v1.1. Centre for Environmental Data Analysis, 16/04/2026. https://catalogue.ceda.ac.uk/uuid/ef5c6596cae548c6aea9dea181c7624c
 
 
 (antarctica_data)=
@@ -543,7 +543,7 @@ Overview of the MEaSUREs multi-year data.
 
 > Rignot, E., Mouginot, J., Scheuchl, B. and Jeong, S., 2022. Changes in Antarctic ice sheet motion derived from satellite radar interferometry between 1995 and 2022. Geophysical Research Letters, 49(23), p.e2022GL100141. DOI: https://doi.org/10.1029/2022GL100141.
 
-> Rignot, E., Scheuchl, B., Mouginot, J. & Jeong, S. (2022). MEaSUREs Multi-year Reference Velocity Maps of the Antarctic Ice Sheet. (NSIDC-0761, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/FB851ZIZYX5O. Date Accessed 04-16-2026.
+> Rignot, E., Scheuchl, B., Mouginot, J. & Jeong, S., 2022. MEaSUREs Multi-year Reference Velocity Maps of the Antarctic Ice Sheet. (NSIDC-0761, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/FB851ZIZYX5O. Date Accessed 04-16-2026.
 
 (antarctica-measures-annual)=
 ### MEaSUREs annual
@@ -560,7 +560,7 @@ Overview of the MEaSUREs annual data.
 
 > Mouginot, J., Rignot, E., Scheuchl, B. and Millan, R., 2017. Comprehensive annual ice sheet velocity mapping using Landsat-8, Sentinel-1, and RADARSAT-2 data. Remote Sensing, 9(4), p.364. DOI: https://doi.org/10.3390/rs9040364.
 
-> Mouginot, J., Scheuchl, B. & Rignot, E. (2017). MEaSUREs Annual Antarctic Ice Velocity Maps. (NSIDC-0720, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/9T4EPQXTJYW9. Date Accessed 04-16-2026.
+> Mouginot, J., Scheuchl, B. & Rignot, E., 2017. MEaSUREs Annual Antarctic Ice Velocity Maps. (NSIDC-0720, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/9T4EPQXTJYW9. Date Accessed 04-16-2026.
 
 (antarctica-measures-ase)=
 ### MEaSUREs ASE
@@ -577,7 +577,7 @@ Overview of the MEaSUREs ASE data.
 
 > Mouginot, J., Rignot, E. and Scheuchl, B., 2014. Sustained increase in ice discharge from the Amundsen Sea Embayment, West Antarctica, from 1973 to 2013. Geophysical Research Letters, 41(5), pp.1576-1584. DOI: https://doi.org/10.1002/2013GL059069.
 
-> Rignot, E., Mouginot, J. & Scheuchl, B. (2014). MEaSUREs InSAR-Based Ice Velocity of the Amundsen Sea Embayment, Antarctica. (NSIDC-0545, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/MEASURES/CRYOSPHERE/nsidc-0545.001. Date Accessed 04-16-2026.
+> Rignot, E., Mouginot, J. & Scheuchl, B., 2014. MEaSUREs InSAR-Based Ice Velocity of the Amundsen Sea Embayment, Antarctica. (NSIDC-0545, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/MEASURES/CRYOSPHERE/nsidc-0545.001. Date Accessed 04-16-2026.
 
 (antarctica-itslive-annual)=
 ### ITS_LIVE Annual
@@ -594,7 +594,7 @@ Overview of the Antarctica ITS_LIVE annual data.
 
 > Gardner, A.S., Greene, C.A., Kennedy, J.H., Fahnestock, M.A., Liukis, M., López, L.A., Lei, Y., Scambos, T.A. and Dehecq, A., 2025. ITS_LIVE global glacier velocity data in near-real time. The Cryosphere, 19(9), pp.3517-3533. DOI: https://doi.org/10.5194/tc-19-3517-2025.
 
-> Gardner, A. S., Fahnestock, M. & Scambos, T. (2022). MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
+> Gardner, A. S., Fahnestock, M. & Scambos, T., 2022. MEaSUREs ITS_LIVE Regional Glacier and Ice Sheet Surface Velocities. (NSIDC-0776, Version 1). [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/6II6VW8LLWJ7. Date Accessed 08-17-2026.
 
 (antarctica-c3s-annual)=
 ### C3S Annual
@@ -609,7 +609,7 @@ alt: C3S annual data overview
 Overview of the C3S annual data.
 ```
 
-> Copernicus Climate Change Service, Climate Data Store (2020): Ice sheet velocity for Antarctica and Greenland derived from satellite observations. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.0b96b838.
+> Copernicus Climate Change Service, Climate Data Store. 2020. Ice sheet velocity for Antarctica and Greenland derived from satellite observations. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.0b96b838.
 
 (antarctica-sid-annual)=
 ### SID Annual
@@ -624,7 +624,7 @@ alt: SID annual data overview
 Overview of the SID annual data.
 ```
 
-> Hogg, A.E.; Davison, B.J.; Rigby, R.; Wallis, B.J.; Slater, R.A.W. (2025): EOCIS: Ice Sheet Velocity, V1. NERC EDS Centre for Environmental Data Analysis, 17 April 2025. doi:10.5285/c0b464b3da9845758cd33591e57c4abf. https://dx.doi.org/10.5285/c0b464b3da9845758cd33591e57c4abf
+> Hogg, A.E.; Davison, B.J.; Rigby, R.; Wallis, B.J.; Slater, R.A.W. 2025: EOCIS: Ice Sheet Velocity, V1. NERC EDS Centre for Environmental Data Analysis, 17 April 2025. doi:10.5285/c0b464b3da9845758cd33591e57c4abf. https://dx.doi.org/10.5285/c0b464b3da9845758cd33591e57c4abf
 
 > Davison, B.J., Hogg, A.E., Rigby, R., Veldhuijsen, S., van Wessem, J.M., van den Broeke, M.R., Holland, P.R., Selley, H.L. and Dutrieux, P., 2023. Sea level rise from West Antarctic mass loss significantly modified by large snowfall anomalies. Nature Communications, 14(1), p.1479. DOI: https://doi.org/10.1038/s41467-023-36990-3.
 
@@ -677,7 +677,7 @@ Overview of the Li et al. data over Totten Glacier.
 (antarctica-historical)=
 ### Historical velocity fields
 
-We include nine further data sources that provide satellite- and aerial-image derived velocity fields for different Antarctic ice streams and ice shelves. All but one of these Contributing Datasets include a single velocity field in the target location. The exception are the velocity fields of Pine Island Glacier from 1992 to 2000. described in [Joughin et al. (2003)](https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2003GL017609), for which there are four distinct measurement epochs.
+We include nine further data sources that provide satellite- and aerial-image derived velocity fields for different Antarctic ice streams and ice shelves. All but one of these Contributing Datasets include a single velocity field in the target location. The exception are the velocity fields of Pine Island Glacier from 1992 to 2000 described in [Joughin et al. (2003)](https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2003GL017609), for which there are four distinct measurement epochs.
 
 ```{figure} ../_static/antarctica/Antarctica_historical_mean_speed.png
 ---
