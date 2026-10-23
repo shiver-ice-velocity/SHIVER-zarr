@@ -8,6 +8,10 @@ import numpy as np
 import pandas as pd
 import zarr
 import random
+from datetime import date
+import json
+from pathlib import Path
+import zarr
 
 try:
     from citations import CITATIONS_CONFIG
@@ -180,6 +184,70 @@ def build_json_catalog(zarr_path, region):
         json.dump(catalog, f, indent=4)
         
     print(f"Catalog successfully saved to {catalog_out_path}")
+    
+
+def bump_minor_version(version_str: str) -> str:
+    """Bumps the minor version of a Semantic Versioning string (e.g., '1.6.0' -> '1.7.0')."""
+    try:
+        parts = [int(p) for p in version_str.split(".")]
+        if len(parts) == 3:
+            major, minor, patch = parts
+            return f"{major}.{minor + 1}.0"
+    except Exception:
+        pass
+    return version_str  # Fallback if parsing fails
+
+
+def sync_zarr3_inline_metadata(zarr_path: str, bump_version: bool = True) -> None:
+    """Synchronizes Zarr v3 inline metadata, bumps minor version (optional), and updates last_updated date."""
+    zarr_dir = Path(zarr_path)
+    root_json_path = zarr_dir / "zarr.json"
+
+    if not root_json_path.exists():
+        print(f"Warning: Root metadata file not found at {root_json_path}")
+        return
+
+    with open(root_json_path, "r") as f:
+        root_meta = json.load(f)
+
+    # 1. Handle Version & Date Updates
+    if "attributes" in root_meta and isinstance(root_meta["attributes"], dict):
+        attrs = root_meta["attributes"]
+
+        if bump_version and "dataset_version" in attrs:
+            old_version = attrs["dataset_version"]
+            new_version = bump_minor_version(old_version)
+            attrs["dataset_version"] = new_version
+            print(f"Dataset version bumped: {old_version} -> {new_version}")
+
+        attrs["last_updated"] = date.today().isoformat()
+
+    # 2. Sync inline consolidated_metadata block
+    if "consolidated_metadata" in root_meta and isinstance(
+        root_meta["consolidated_metadata"], dict
+    ):
+        inline_meta = root_meta["consolidated_metadata"].get("metadata", {})
+
+        for var_json_path in zarr_dir.glob("**/zarr.json"):
+            if var_json_path == root_json_path:
+                continue
+
+            var_name = var_json_path.parent.relative_to(zarr_dir).as_posix()
+
+            with open(var_json_path, "r") as f:
+                var_meta = json.load(f)
+
+            if var_name in inline_meta and "shape" in var_meta:
+                inline_meta[var_name]["shape"] = var_meta["shape"]
+                if "chunk_grid" in var_meta:
+                    inline_meta[var_name]["chunk_grid"] = var_meta["chunk_grid"]
+
+    with open(root_json_path, "w") as f:
+        json.dump(root_meta, f, indent=2)
+
+    print("Zarr v3 inline metadata synchronized successfully.")
+    
+    
 
 # --- APPEND AND UPDATE ---
 def append_new_data(new_files):
@@ -235,75 +303,37 @@ def append_new_data(new_files):
         sys.exit(1)
 
     # --- STEP 2: Concatenate and append batch to Zarr ---
-    print(f"Concatenating {len(batch_datasets)} files into a single batch dataset...", flush=True)
-    ds_batch = xr.concat(batch_datasets, dim='time')
-    
-    # Drop fixed spatial variables so we don't conflict with target dataset
-    ds_batch = ds_batch.drop_vars(['x', 'y', 'spatial_ref'], errors='ignore')
-    
-    # Clear lingering encodings from input NetCDF/GeoTIFF files
+    print(
+        f"Concatenating {len(batch_datasets)} files into a single batch dataset...",
+        flush=True,
+    )
+    ds_batch = xr.concat(batch_datasets, dim="time")
+
+    # Drop fixed spatial variables to prevent schema conflicts
+    ds_batch = ds_batch.drop_vars(["x", "y", "spatial_ref"], errors="ignore")
+
+    # Clear encodings from input files
     for var in ds_batch.variables:
         ds_batch[var].encoding.clear()
-        
-    # Read and preserve existing root group attributes from target Zarr store
-    existing_root_attrs = {}
-    if os.path.exists(OUTPUT_ZARR):
-        try:
-            z_existing = zarr.open_group(OUTPUT_ZARR, mode='r')
-            existing_root_attrs = dict(z_existing.attrs)
-        except Exception as e:
-            print(f"Warning: Could not read existing root attributes: {e}")
 
-    # Clear global attributes on ds_batch so NetCDF metadata doesn't overwrite group attrs
+    # Clear global attributes from incoming slice
     ds_batch.attrs.clear()
 
     print("Writing batch append to Zarr store...", flush=True)
-    ds_batch.to_zarr(OUTPUT_ZARR, append_dim='time', mode='a')
-    
-    # Update and save the catalog for successfully processed files
+    ds_batch.to_zarr(OUTPUT_ZARR, append_dim="time", mode="a")
+
+    # Save updated pickle catalog
     existing_epochs.extend(processed_epochs)
-    with open(PKL_CATALOG, 'wb') as pkl_file:
+    with open(PKL_CATALOG, "wb") as pkl_file:
         pickle.dump(existing_epochs, pkl_file)
 
-    # --- STEP 3: Re-consolidate 1D metadata arrays into single chunks (Zarr v3 API) ---
-    print("Re-consolidating 1D metadata arrays into single chunks...", flush=True)
-    z_root = zarr.open_group(OUTPUT_ZARR, mode='a')
+    # --- STEP 3: Synchronize Zarr v3 Inline Metadata ---
+    print("Synchronizing Zarr v3 inline metadata and attributes...", flush=True)
+    sync_zarr3_inline_metadata(OUTPUT_ZARR, new_version="1.6.0")
 
-    # Restore root group attributes (dataset_version, last_updated, etc.)
-    if existing_root_attrs:
-        z_root.attrs.update(existing_root_attrs)
+    # Update JSON catalog
+    build_json_catalog(OUTPUT_ZARR, "greenland")
 
-    dim_map = {
-        'time': ('time',),
-        'time_bnds': ('time', 'bnds'),
-        'data_source': ('time',)
-    }
-
-    for var_name in ['time', 'time_bnds', 'data_source']:
-        if var_name in z_root:
-            arr = z_root[var_name]
-            
-            # Read updated array into memory and preserve attributes
-            full_data = arr[:]
-            saved_attrs = dict(arr.attrs)
-            dims = dim_map.get(var_name)
-            
-            # Re-create array with explicit Zarr v3 dimension_names
-            z_root.create_array(
-                name=var_name,
-                data=full_data,
-                chunks=full_data.shape,
-                attributes=saved_attrs,
-                dimension_names=dims,
-                overwrite=True
-            )
-
-    zarr.consolidate_metadata(OUTPUT_ZARR)
-    print("Zarr v3 metadata consolidated.")
-    
-    # Update JSON catalog with whatever successfully appended
-    build_json_catalog(OUTPUT_ZARR, "greenland")    
-    
     print("Append process completed successfully!")
 
 if __name__ == "__main__":

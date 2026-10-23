@@ -44,9 +44,10 @@ def safe_p2p_rechunk(mode):
     print("Opening source Zarr...")
     ds = xr.open_zarr(source_path)
 
+    # Clear stale chunk definitions from encoding while preserving codecs/compressors
     for var in ds.variables:
-        if 'chunks' in ds[var].encoding:
-            del ds[var].encoding['chunks']
+        ds[var].encoding.pop('chunks', None)
+        ds[var].encoding.pop('preferred_chunks', None)
 
     time_len = ds.sizes['time']
     
@@ -55,36 +56,25 @@ def safe_p2p_rechunk(mode):
     elif mode == "timeseries":
         chunk_dict = {'time': time_len, 'y': 64, 'x': 64}
 
-    print(f"Target Chunking -> {chunk_dict}")
+    print(f"Target Chunking for N-D data variables -> {chunk_dict}")
 
     # --- 4. EXECUTE P2P RECHUNK & PRESERVE ATTRIBUTES ---
     print("Applying chunk definitions...")
     ds_rechunked = ds.chunk(chunk_dict)
     
-    print("Enforcing single-chunk format for metadata arrays...")
-    for var in ['time', 'time_bnds', 'data_source']:
-        if var in ds_rechunked:
+    # Enforce single-chunk (-1) format for 1D/0D coordinates, bounds, and scalar metadata arrays
+    print("Enforcing single-chunk format for 0D/1D coordinate & metadata variables...")
+    for var in ds_rechunked.variables:
+        if len(ds_rechunked[var].dims) <= 1 or var in ['spatial_ref', 'crs', 'time_bnds', 'data_source']:
             ds_rechunked[var] = ds_rechunked[var].chunk(-1)
 
-    # Preserve metadata attributes from destination store if present
-    existing_attrs = {}
-    if os.path.exists(final_path):
-        final_json_path = os.path.join(final_path, "zarr.json")
-        if os.path.exists(final_json_path):
-            try:
-                with open(final_json_path, "r") as f:
-                    final_meta = json.load(f)
-                    existing_attrs = final_meta.get("attributes", {})
-            except Exception as e:
-                print(f"Warning: Could not read existing attributes from {final_path}: {e}")
+    # Inherit dataset attributes directly from spatial_200 source store
+    # Option: log the rechunking mode in dataset metadata
+    ds_rechunked.attrs = dict(ds.attrs)
+    ds_rechunked.attrs["rechunk_mode"] = mode
 
-    # Merge: start with source attrs, update with existing target attrs
-    merged_attrs = dict(ds.attrs)
-    merged_attrs.update(existing_attrs)
-    ds_rechunked.attrs = merged_attrs
-
-    print("Writing to temporary store...")
-    ds_rechunked.to_zarr(temp_target_path, zarr_format=3)
+    print("Writing to temporary Zarr v3 store...")
+    ds_rechunked.to_zarr(temp_target_path, zarr_format=3, mode="w")
 
     # --- 5. ATOMIC SWAP ---
     print("Rechunking complete! Performing safe swap...")
