@@ -50,6 +50,28 @@ CITATIONS_DB = {
         "doi": "10.1029/2019JF005492"
     },
     
+    # --- PROMICE ---
+    "promice_data": {
+        "type": "misc",
+        "author": "Solgaard, A. M. and Kusk, A.",
+        "year": "2026",
+        "title": "Greenland Ice Velocity from Sentinel-1 Edition 5",
+        "publisher": "GEUS Dataverse",
+        "doi": "10.22008/FK2/K70OPK",
+        "howpublished": "Dataset"
+    },
+    "promice_method": {
+        "type": "article",
+        "author": "Solgaard, A. and Kusk, A. and Merryman Boncori, J. P. and Dall, J. and Mankoff, K. D. and Ahlstrøm, A. P. and Andersen, S. B. and Citterio, M. and Karlsson, N. B. and Kjeldsen, K. K. and Korsgaard, N. J. and Larsen, S. H. and Fausto, R. S.",
+        "year": "2021",
+        "title": "Greenland ice velocity maps from the PROMICE project",
+        "journal": "Earth System Science Data",
+        "volume": "13",
+        "number": "7",
+        "pages": "3491-3512",
+        "doi": "10.5194/essd-13-3491-2021"
+    },
+    
     # --- MEaSUREs Greenland method ---
     "joughin_greenland_2010": {
         "type": "article",
@@ -692,6 +714,7 @@ CITATIONS_DB = {
 # 2. Map the data sources to the citation keys
 GREENLAND_SOURCE_MAPPING = {
     "SHIVER": ["davison_shiver_data", "davison_shiver_inprep"],
+    "PROMICE": ["promice_data", "promice_method"],
     "SHIFT": ["sole_shift_2026", "davison_2020"], 
     "MEaSUREs_monthly": ["joughin_greenland_2010", "joughin_greenland_2018", "measures_greenland_monthly_data_2023"], 
     "MEaSUREs_quarterly": ["joughin_greenland_2010", "joughin_greenland_2018", "measures_greenland_quarterly_data_2023"], 
