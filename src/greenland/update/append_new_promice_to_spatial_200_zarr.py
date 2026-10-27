@@ -7,11 +7,8 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 import zarr
-import random
 from datetime import date
-import json
 from pathlib import Path
-import zarr
 
 try:
     from citations import CITATIONS_CONFIG
@@ -24,11 +21,14 @@ PROMICE_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/PROMICE_edit
 OUTPUT_ZARR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/greenland_multisource_velocity_spatial_200.zarr"
 PKL_CATALOG = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/master_epoch_catalog.pkl"
 JSON_CATALOG = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/greenland_multisource_velocity_catalog.json"
+LOG_DIR = "/mnt/parscratch/users/gg1bjd/Data/Velocity/Greenland/multisource_zarr/update/logs"
 
 # --- PROMICE Processing ---
 def preprocess_promice(file_path):
-    """Opens, formats, and converts units for a single PROMICE NetCDF file."""
-    ds = xr.open_dataset(file_path, decode_times=True)
+    """Opens, formats, loads into memory, and converts units for a single PROMICE NetCDF file."""
+    # Use context manager and .load() to immediately close file handles and avoid open file descriptor leaks
+    with xr.open_dataset(file_path, decode_times=True) as temp_ds:
+        ds = temp_ds.load()
     
     # 1. Keep relevant variables
     vars_to_keep = [
@@ -43,7 +43,7 @@ def preprocess_promice(file_path):
     ]
     ds = ds[vars_to_keep]
     
-    # 2. Rename to match our schema
+    # 2. Rename to match schema
     ds = ds.rename({
         'land_ice_surface_velocity_magnitude': 'speed',
         'land_ice_surface_velocity_magnitude_std': 'speed_error',
@@ -54,7 +54,7 @@ def preprocess_promice(file_path):
         'crs': 'spatial_ref'
     })
     
-    # 3. Process all velocity/error variables (convert m/day to m/year, round to 1 decimal place, set attributes)
+    # 3. Process all velocity/error variables
     vel_vars = ['speed', 'speed_error', 'vx', 'vy', 'vx_error', 'vy_error']
     for var in vel_vars:
         ds[var] = np.round(ds[var] * 365.25, 1)
@@ -78,10 +78,14 @@ def preprocess_promice(file_path):
 # --- IDENTIFY NEW FILES ---
 def get_new_promice_files_from_zarr():
     """Identifies new NetCDF files by checking the Zarr store directly."""
-    ds_zarr = xr.open_zarr(OUTPUT_ZARR)
-    
-    promice_mask = ds_zarr['data_source'].values == 'PROMICE'
-    zarr_promice_times = ds_zarr['time'].values[promice_mask]
+    if not os.path.exists(OUTPUT_ZARR):
+        return sorted(glob.glob(os.path.join(PROMICE_DIR, "*.nc")))
+
+    with xr.open_zarr(OUTPUT_ZARR) as ds_zarr:
+        # Strip trailing whitespace from fixed-width unicode string arrays
+        sources = np.char.strip(ds_zarr['data_source'].values.astype(str))
+        promice_mask = sources == 'PROMICE'
+        zarr_promice_times = ds_zarr['time'].values[promice_mask]
     
     all_nc_files = sorted(glob.glob(os.path.join(PROMICE_DIR, "*.nc")))
     new_files = []
@@ -89,13 +93,14 @@ def get_new_promice_files_from_zarr():
     
     for f in all_nc_files:
         with xr.open_dataset(f, decode_times=True) as temp_ds:
-            nc_time = temp_ds['time'].values[0]
+            nc_time = np.atleast_1d(temp_ds['time'].values)[0]
             
         time_diffs = np.abs(zarr_promice_times - nc_time)
         if not np.any(time_diffs < tolerance):
             new_files.append(f)
             
     return new_files
+
 
 # --- UPDATE METADATA CATALOGS ---
 def build_json_catalog(zarr_path, region):
@@ -105,77 +110,63 @@ def build_json_catalog(zarr_path, region):
         print(f"Error: Zarr store not found at {zarr_path}")
         sys.exit(1)
 
-    # 1. Open the fully compiled zarr
-    ds = xr.open_zarr(zarr_path, consolidated=True)
-    
-    # 2. Extract Global Spatial Bounds
-    x, y = ds['x'].values, ds['y'].values
-    
-    # Base catalog structure
-    catalog = {
-        "dataset_name": f"SHIVER Multi-Source {region.capitalize()} Ice Velocity",
-        "spatial_extent": {
-            "xmin": float(x.min()),
-            "xmax": float(x.max()),
-            "ymin": float(y.min()),
-            "ymax": float(y.max()),
-            "crs": "EPSG:3413"
-        },
-        "global_citations": CITATIONS_CONFIG.get("common", {}).get("SHIVER", []),
-        "sources": {}
-    }
-
-    # 3. Clean and isolate unique sources
-    sources = ds['data_source'].values
-    time_bnds = ds['time_bnds'].values
-    
-    unique_vals = np.unique(sources)
-    actual_sources = [
-        str(s) for s in unique_vals 
-        if pd.notna(s) and str(s).lower() not in ['nan', 'none', 'unknown', '']
-    ]
-
-    region_key = region.lower()
-    region_citations = CITATIONS_CONFIG.get(region_key, {})
-
-    # 4. Calculate Stats per Source
-    for src in actual_sources:
-        # Get boolean mask for this specific source
-        idx = (sources == src)
-        src_bnds = time_bnds[idx]
+    with xr.open_zarr(zarr_path) as ds:
+        x, y = ds['x'].values, ds['y'].values
         
-        # Calculate Epochs
-        epochs = int(np.sum(idx))
-        
-        # Calculate Start and End Date
-        start_date = pd.to_datetime(src_bnds[:, 0].min()).strftime('%Y-%m-%d')
-        end_date = pd.to_datetime(src_bnds[:, 1].max()).strftime('%Y-%m-%d')
-        
-        # Calculate Mode Time Separation (dt) in days
-        deltas = pd.to_timedelta(src_bnds[:, 1] - src_bnds[:, 0])
-        days = np.round(deltas.total_seconds() / 86400.0).astype(int)
-        
-        mode_val = None
-        if len(days) > 0:
-            mode_vals = pd.Series(days).mode()
-            if not mode_vals.empty:
-                mode_val = int(mode_vals.iloc[0])
-
-        # Fetch citation list for this source
-        src_citations = region_citations.get(src, [])
-        if isinstance(src_citations, str):
-            src_citations = [src_citations]
-
-        # Add to catalog
-        catalog["sources"][src] = {
-            "start_date": start_date,
-            "end_date": end_date,
-            "epochs": epochs,
-            "mode_time_separation_days": mode_val,
-            "citations": src_citations
+        catalog = {
+            "dataset_name": f"SHIVER Multi-Source {region.capitalize()} Ice Velocity",
+            "spatial_extent": {
+                "xmin": float(x.min()),
+                "xmax": float(x.max()),
+                "ymin": float(y.min()),
+                "ymax": float(y.max()),
+                "crs": "EPSG:3413"
+            },
+            "global_citations": CITATIONS_CONFIG.get("common", {}).get("SHIVER", []),
+            "sources": {}
         }
 
-    # 5. Save to Disk
+        sources = ds['data_source'].values
+        time_bnds = ds['time_bnds'].values
+        
+        unique_vals = np.unique(sources)
+        actual_sources = [
+            str(s).strip() for s in unique_vals 
+            if pd.notna(s) and str(s).strip().lower() not in ['nan', 'none', 'unknown', '']
+        ]
+
+        region_key = region.lower()
+        region_citations = CITATIONS_CONFIG.get(region_key, {})
+
+        for src in actual_sources:
+            idx = (np.char.strip(sources.astype(str)) == src)
+            src_bnds = time_bnds[idx]
+            
+            epochs = int(np.sum(idx))
+            start_date = pd.to_datetime(src_bnds[:, 0].min()).strftime('%Y-%m-%d')
+            end_date = pd.to_datetime(src_bnds[:, 1].max()).strftime('%Y-%m-%d')
+            
+            deltas = pd.to_timedelta(src_bnds[:, 1] - src_bnds[:, 0])
+            days = np.round(deltas.total_seconds() / 86400.0).astype(int)
+            
+            mode_val = None
+            if len(days) > 0:
+                mode_vals = pd.Series(days).mode()
+                if not mode_vals.empty:
+                    mode_val = int(mode_vals.iloc[0])
+
+            src_citations = region_citations.get(src, [])
+            if isinstance(src_citations, str):
+                src_citations = [src_citations]
+
+            catalog["sources"][src] = {
+                "start_date": start_date,
+                "end_date": end_date,
+                "epochs": epochs,
+                "mode_time_separation_days": mode_val,
+                "citations": src_citations
+            }
+
     catalog_out_path = zarr_path.replace('.zarr', '_catalog.json')
     if catalog_out_path == zarr_path:
         catalog_out_path += "_catalog.json"
@@ -184,22 +175,23 @@ def build_json_catalog(zarr_path, region):
         json.dump(catalog, f, indent=4)
         
     print(f"Catalog successfully saved to {catalog_out_path}")
-    
+
 
 def bump_minor_version(version_str: str) -> str:
-    """Bumps the minor version of a Semantic Versioning string (e.g., '1.6.0' -> '1.7.0')."""
+    """Bumps the minor version of a Semantic Versioning string (e.g., '1.6.0' -> '1.7.0' or '1.6' -> '1.7.0')."""
     try:
-        parts = [int(p) for p in version_str.split(".")]
-        if len(parts) == 3:
-            major, minor, patch = parts
+        parts = version_str.split(".")
+        if len(parts) >= 2:
+            major = int(parts[0])
+            minor = int(parts[1])
             return f"{major}.{minor + 1}.0"
     except Exception:
         pass
-    return version_str  # Fallback if parsing fails
+    return version_str
 
 
-def sync_zarr3_inline_metadata(zarr_path: str, bump_version: bool = True) -> None:
-    """Synchronizes Zarr v3 inline metadata, bumps minor version (optional), and updates last_updated date."""
+def sync_zarr3_inline_metadata(zarr_path: str, bump_version: bool = True, backup_attrs: dict = None) -> None:
+    """Synchronizes Zarr v3 inline metadata, bumps minor version, logs update, and updates last_updated date."""
     zarr_dir = Path(zarr_path)
     root_json_path = zarr_dir / "zarr.json"
 
@@ -210,19 +202,37 @@ def sync_zarr3_inline_metadata(zarr_path: str, bump_version: bool = True) -> Non
     with open(root_json_path, "r") as f:
         root_meta = json.load(f)
 
+    attrs = root_meta.get("attributes", {})
+    
+    # Restore pre-existing root attributes if missing from updated dict
+    if backup_attrs:
+        for k, v in backup_attrs.items():
+            if k not in attrs:
+                attrs[k] = v
+
     # 1. Handle Version & Date Updates
-    if "attributes" in root_meta and isinstance(root_meta["attributes"], dict):
-        attrs = root_meta["attributes"]
+    if bump_version:
+        old_version = attrs.get("dataset_version", "1.0.0")
+        new_version = bump_minor_version(old_version)
+        attrs["dataset_version"] = new_version
+        
+        # Ensure log directory exists before saving version log
+        os.makedirs(LOG_DIR, exist_ok=True)
+        meta_path = os.path.join(LOG_DIR, "version_info.json")
+        log_payload = {
+            "old_version": old_version,
+            "new_version": new_version,
+            "last_updated": date.today().isoformat()
+        }
+        with open(meta_path, "w") as f:
+            json.dump(log_payload, f, indent=2)
+            
+        print(f"Dataset version bumped: {old_version} -> {new_version}")
 
-        if bump_version and "dataset_version" in attrs:
-            old_version = attrs["dataset_version"]
-            new_version = bump_minor_version(old_version)
-            attrs["dataset_version"] = new_version
-            print(f"Dataset version bumped: {old_version} -> {new_version}")
+    attrs["last_updated"] = date.today().isoformat()
+    root_meta["attributes"] = attrs
 
-        attrs["last_updated"] = date.today().isoformat()
-
-    # 2. Sync inline consolidated_metadata block
+    # 2. Sync inline consolidated_metadata block for Zarr v3
     if "consolidated_metadata" in root_meta and isinstance(
         root_meta["consolidated_metadata"], dict
     ):
@@ -237,28 +247,27 @@ def sync_zarr3_inline_metadata(zarr_path: str, bump_version: bool = True) -> Non
             with open(var_json_path, "r") as f:
                 var_meta = json.load(f)
 
-            if var_name in inline_meta and "shape" in var_meta:
-                inline_meta[var_name]["shape"] = var_meta["shape"]
+            target_key = var_name if var_name in inline_meta else f"{var_name}/zarr.json"
+            if target_key in inline_meta and "shape" in var_meta:
+                inline_meta[target_key]["shape"] = var_meta["shape"]
                 if "chunk_grid" in var_meta:
-                    inline_meta[var_name]["chunk_grid"] = var_meta["chunk_grid"]
+                    inline_meta[target_key]["chunk_grid"] = var_meta["chunk_grid"]
 
     with open(root_json_path, "w") as f:
         json.dump(root_meta, f, indent=2)
 
     print("Zarr v3 inline metadata synchronized successfully.")
-    
-    
+
 
 # --- APPEND AND UPDATE ---
 def append_new_data(new_files):
-    """Processes, applies noise, appends batch to Zarr, and updates catalogs."""
+    """Processes, appends batch to Zarr, preserves root metadata, and updates catalogs."""
     if not new_files:
         print("No new PROMICE files detected. Gracefully exiting.")
         sys.exit(0)
         
     print(f"Detected {len(new_files)} new PROMICE files. Beginning batch append...")
     
-    # Load catalog if it exists
     existing_epochs = []
     if os.path.exists(PKL_CATALOG):
         with open(PKL_CATALOG, 'rb') as f:
@@ -273,14 +282,13 @@ def append_new_data(new_files):
         try:
             ds_new = preprocess_promice(f)
             
-            t = ds_new['time'].values[0]
+            t = np.atleast_1d(ds_new['time'].values)[0]
             tb = ds_new['time_bnds'].values
             if ds_new['time_bnds'].dims == ('bnds', 'time'):
                 tb = ds_new['time_bnds'].transpose('time', 'bnds').values[0]
             else:
                 tb = tb[0] if tb.ndim > 1 else tb
                             
-            # Format time coordinates
             ds_new = ds_new.assign_coords(time=[t])
             ds_new['time_bnds'] = (['time', 'bnds'], [tb] if tb.ndim == 1 else tb)
             ds_new['data_source'] = (['time'], np.array(['PROMICE'], dtype='<U50'))
@@ -303,38 +311,39 @@ def append_new_data(new_files):
         sys.exit(1)
 
     # --- STEP 2: Concatenate and append batch to Zarr ---
-    print(
-        f"Concatenating {len(batch_datasets)} files into a single batch dataset...",
-        flush=True,
-    )
+    print(f"Concatenating {len(batch_datasets)} files into a single batch dataset...", flush=True)
     ds_batch = xr.concat(batch_datasets, dim="time")
 
-    # Drop fixed spatial variables to prevent schema conflicts
     ds_batch = ds_batch.drop_vars(["x", "y", "spatial_ref"], errors="ignore")
 
-    # Clear encodings from input files
     for var in ds_batch.variables:
         ds_batch[var].encoding.clear()
 
-    # Clear global attributes from incoming slice
+    # Clear global attributes from slice to prevent NetCDF metadata contamination
     ds_batch.attrs.clear()
+
+    # Backup original root zarr.json attributes prior to appending
+    root_json_path = Path(OUTPUT_ZARR) / "zarr.json"
+    backup_attrs = {}
+    if root_json_path.exists():
+        with open(root_json_path, "r") as f:
+            backup_attrs = json.load(f).get("attributes", {})
 
     print("Writing batch append to Zarr store...", flush=True)
     ds_batch.to_zarr(OUTPUT_ZARR, append_dim="time", mode="a")
 
-    # Save updated pickle catalog
     existing_epochs.extend(processed_epochs)
     with open(PKL_CATALOG, "wb") as pkl_file:
         pickle.dump(existing_epochs, pkl_file)
 
     # --- STEP 3: Synchronize Zarr v3 Inline Metadata ---
     print("Synchronizing Zarr v3 inline metadata and attributes...", flush=True)
-    sync_zarr3_inline_metadata(OUTPUT_ZARR, new_version="1.6.0")
+    sync_zarr3_inline_metadata(OUTPUT_ZARR, bump_version=True, backup_attrs=backup_attrs)
 
-    # Update JSON catalog
     build_json_catalog(OUTPUT_ZARR, "greenland")
 
     print("Append process completed successfully!")
+
 
 if __name__ == "__main__":
     new_files = get_new_promice_files_from_zarr()
