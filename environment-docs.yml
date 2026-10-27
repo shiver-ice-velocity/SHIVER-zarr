@@ -1,0 +1,8 @@
+name: shiver_docs
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - jupyterlab
+  - jupyter-book[version='<1.0']

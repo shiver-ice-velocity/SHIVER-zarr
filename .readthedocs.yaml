@@ -9,7 +9,7 @@ build:
       - jupyter-book config sphinx docs/
 
 conda:
-  environment: environment.yml
+  environment: environment-docs.yml
 
 sphinx:
   configuration: docs/conf.py
