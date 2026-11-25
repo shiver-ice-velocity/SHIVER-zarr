@@ -3,20 +3,29 @@
 CITATIONS_DB = {
     
     # --- SHIVER ---
-    "davison_shiver_data": {
+    "davison_shiver_antarctica_data": {
         "type": "misc",
         "author": "Davison, B. J.",
         "year": "2026",
-        "title": "The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets",
-        "publisher": "Zenodo",
-        "doi": "10.5281/zenodo.21375859",
+        "title": "Antarctic Ice Sheet flow - 1963 to 2026",
+        "publisher": "University of Sheffield",
+        "doi": "10.60480/qhx5-tw46",
+        "howpublished": "Dataset"
+    },
+    "davison_shiver_greenland_data": {
+        "type": "misc",
+        "author": "Davison, B. J.",
+        "year": "2026",
+        "title": "Greenland Ice Sheet flow - 1972 to 2026",
+        "publisher": "University of Sheffield",
+        "doi": "10.60480/17ee-4k62",
         "howpublished": "Dataset"
     },
     "davison_shiver_inprep": {
         "type": "unpublished",
         "author": "Davison, B. J. and others", 
         "year": "in prep",
-        "title": "The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets",
+        "title": "Unified satellite-derived ice velocity datasets for Earth's ice sheets",
         "note": "Manuscript in preparation"
     },
     
@@ -713,7 +722,7 @@ CITATIONS_DB = {
 
 # 2. Map the data sources to the citation keys
 GREENLAND_SOURCE_MAPPING = {
-    "SHIVER": ["davison_shiver_data", "davison_shiver_inprep"],
+    "SHIVER": ["davison_shiver_greenland_data", "davison_shiver_inprep"],
     "PROMICE": ["promice_data", "promice_method"],
     "SHIFT": ["sole_shift_2026", "davison_2020"], 
     "MEaSUREs_monthly": ["joughin_greenland_2010", "joughin_greenland_2018", "measures_greenland_monthly_data_2023"], 
@@ -764,7 +773,7 @@ GREENLAND_SOURCE_MAPPING = {
 
 
 ANTARCTICA_SOURCE_MAPPING = {
-    "SHIVER": ["davison_shiver_data", "davison_shiver_inprep"],
+    "SHIVER": ["davison_shiver_antarctica_data", "davison_shiver_inprep"],
     "SHIFT": ["davison_shift_2026", "davison_2020"],
     "ENVEO_monthly": ["wuite_2026"],
     "ENVEO_Sentinel-1_PIG": ["wuite_2026"],

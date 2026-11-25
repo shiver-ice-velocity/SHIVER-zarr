@@ -8,9 +8,8 @@
         "crs": "EPSG:3413"
     },
     "global_citations": [
-        "SHIVER tool: Davison, B. J. (2026). SHeffield Ice Velocity ExploreR (SHIVER): initial release (Version v1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21378057",
-		"SHIVER zarr compilation method: Davison, B. J. (2026). SHeffield Ice Velocity ExploreR (SHIVER): initial release of Zarr creation code [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21375859",
-		"SHIVER method paper: Davison, B. J. et al. (in prep). The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets. Manuscript in preparation."
+        "SHIVER data: Davison, B. J. (2026). Greenland Ice Sheet flow - 1972 to 2026 (Version v1.6.0). [Data set]. University of Sheffield. https://doi.org/10.60480/17ee-4k62",
+		"SHIVER method paper: Davison, B. J. et al. (in prep). Unified satellite-derived ice velocity datasets for Earth's ice sheets. Manuscript in preparation."
     ],
     "sources": {
         "C3S_annual": {
@@ -179,8 +178,8 @@
         },
         "PROMICE": {
             "start_date": "2016-01-05",
-            "end_date": "2026-09-09",
-            "epochs": 322,
+            "end_date": "2026-10-03",
+            "epochs": 324,
             "mode_time_separation_days": 24,
             "citations": [
                 "PROMICE data: Solgaard, Anne Munck; Kusk, Anders, 2026, Greenland Ice Velocity from Sentinel-1 Edition 5, https://doi.org/10.22008/FK2/K70OPK, GEUS Dataverse, V6",
@@ -193,7 +192,7 @@
             "epochs": 1663,
             "mode_time_separation_days": 12,
             "citations": [
-                "SHIFT Greenland data: Sole, A. J. and Davison, B. J. 2026. SHeffield Ice Flow Tracker (SHIFT) velocity data: West Greenland ice surface velocity fields derived from intensity tracking of Sentinel-1 Synthetic Aperture Radar image pairs. [Online]. Available from: https://doi.org/10.15131/shef.data.33113009 [Accessed: DD MMM YYYY].",
+                "SHIFT data: Davison, B. J. and Sole, A. J. (2026). SHIFT Ice Velocity Dataset [Data set]. Figshare. https://doi.org/10.XXXX/figshare.XXXXXXX",
                 "SHIFT method: Davison, B.J., Sole, A.J., Cowton, T.R., Lea, J.M., Slater, D.A., Fahrner, D. and Nienow, P.W., 2020. Subglacial drainage evolution modulates seasonal ice flow variability of three tidewater glaciers in southwest Greenland. Journal of Geophysical Research: Earth Surface, 125(9), p.e2019JF005492. DOI: https://doi.org/10.1029/2019JF005492."
             ]
         }

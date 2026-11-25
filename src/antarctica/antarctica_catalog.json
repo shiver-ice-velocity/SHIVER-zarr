@@ -5,12 +5,11 @@
         "xmax": 2867900.0,
         "ymin": -2457900.0,
         "ymax": 2457900.0,
-        "crs": "EPSG:3413"
+        "crs": "EPSG:3031"
     },
     "global_citations": [
-        "SHIVER tool: Davison, B. J. (2026). SHeffield Ice Velocity ExploreR (SHIVER): initial release (Version v1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21378057",
-		"SHIVER zarr compilation method: Davison, B. J. (2026). SHeffield Ice Velocity ExploreR (SHIVER): initial release of Zarr creation code [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21375859",
-		"SHIVER method paper: Davison, B. J. et al. (in prep). The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets. Manuscript in preparation."
+        "SHIVER data: Davison, B. J. (2026). Antarctic Ice Sheet flow - 1963 to 2026 (Version v1.6.0). [Data set]. University of Sheffield. https://doi.org/10.60480/qhx5-tw46",
+		"SHIVER method paper: Davison, B. J. et al. (in prep). Unified satellite-derived ice velocity datasets for Earth's ice sheets. Manuscript in preparation."
     ],
     "sources": {
         "Bindschadler96": {

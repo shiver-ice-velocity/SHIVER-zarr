@@ -2,17 +2,21 @@
 
 The recommended approach to citing these data in your work is:
 
-> "Ice velocity estimates were extracted from the Sheffield Ice Velocity ExploreR (SHIVER) unified dataset (Davison, 2026; Davison et al., 2026) and included the contributing datasets detailed in Table X."
+> "Ice velocity estimates were extracted from the Sheffield Ice Velocity ExploreR (SHIVER) unified dataset for Antarctica (Davison, 2026; Davison et al., 2026) and included the contributing datasets detailed in Table X."
 
 Where Davison et al. 2026 is a dataset description paper for SHIVER (in preparation). Until it is published, cite it as:
 
-> Davison, B. J. et al. (in prep). The SHeffield Ice Velocity ExploreR (SHIVER): an online tool for low latency exploration, analysis and sub-setting of unified satellite-derived ice velocity data for Earth's ice sheets. Manuscript in preparation.
+> Davison, B. J. et al. (in prep). Unified satellite-derived ice velocity datasets for Earth's ice sheets. Manuscript in preparation.
 
-And Davison (2026) is the citation for the dataset itself:
+And Davison (2026) is the citation for the dataset itself. For the Antarctic Ice Sheet, this is:
 
-> Davison, B. J. (2026a). The SHeffield Ice Velocity ExploreR (SHIVER): A unified satellite-derived ice velocity dataset for Earth's ice sheets (Version v1.5.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21375859
+> Davison, B. J. (2026). Antarctic Ice Sheet flow - 1963 to 2026 (Version 1.6.0) [Data set]. University of Sheffield. https://doi.org/10.60480/qhx5-tw46
 
-Replace `1.5.0` with the version you actually used. The SHIVER stores are updated as new data are appended, and every store records its release in its root attributes. Each release matches a version of the [Zenodo record](https://doi.org/10.5281/zenodo.21375859), so you can always recover exactly which data were used:
+Whilst the citation for the Greenland Ice Sheet dataset is:
+
+> Davison, B. J. (2026). Greenland Ice Sheet flow - 1972 to 2026 (Version 1.6.0) [Data set]. University of Sheffield. https://doi.org/10.60480/17ee-4k62
+
+Replace `1.6.0` with the version you actually used. The SHIVER stores are updated as new data are appended, and every store records its release in its root attributes. Each release matches a version of the [Zenodo record](https://doi.org/10.5281/zenodo.21375859), so you can always recover exactly which data were used:
 
 ```python
 import xarray as xr
